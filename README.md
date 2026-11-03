@@ -24,7 +24,7 @@
 |------|------|----------------|-----------------|
 | Group Lead | Debanshika Das | 2501010560 | DDas12345 |
 
-**Team No.:** To be confirmed · **Section:** E · **Repository URL:** https://github.com/DDas12345/SkillSwap_Data_Analytics_DE_2026
+**Team No.:** T0038 · **Section:** E · **Repository URL:** https://github.com/DDas12345/SkillSwap_Data_Analytics_DE_2026
 
 ---
 
