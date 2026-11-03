@@ -1,0 +1,134 @@
+
+erDiagram
+
+    CITIES {
+        int city_id PK
+        varchar city_name
+        varchar state
+    }
+
+    CATEGORIES {
+        int category_id PK
+        varchar category_name
+        int parent_id FK
+    }
+
+    BOOST_PACKAGES {
+        int package_id PK
+        varchar package_name
+        numeric price
+        int duration_days
+    }
+
+    USERS {
+        int user_id PK
+        varchar full_name
+        varchar phone UK
+        varchar email UK
+        int city_id FK
+        boolean phone_verified
+        boolean is_banned
+        timestamptz joined_at
+    }
+
+    LISTINGS {
+        int listing_id PK
+        int seller_id FK
+        int category_id FK
+        varchar title
+        text description
+        numeric price
+        boolean is_negotiable
+        varchar item_condition
+        jsonb attributes
+        int city_id FK
+        varchar locality
+        numeric latitude
+        numeric longitude
+        int image_count
+        int view_count
+        int boost_package_id FK
+        varchar status
+        timestamptz posted_at
+        timestamptz expires_at
+        timestamptz sold_at
+    }
+
+    CHAT_THREADS {
+        int thread_id PK
+        int listing_id FK
+        int buyer_id FK
+        timestamptz created_at
+    }
+
+    CHAT_MESSAGES {
+        int message_id PK
+        int thread_id FK
+        int sender_id FK
+        text body
+        timestamptz sent_at
+        boolean is_read
+    }
+
+    OFFERS {
+        int offer_id PK
+        int listing_id FK
+        int buyer_id FK
+        numeric offer_price
+        varchar status
+        timestamptz created_at
+        timestamptz responded_at
+    }
+
+    FAVOURITES {
+        int user_id PK, FK
+        int listing_id PK, FK
+        timestamptz saved_at
+    }
+
+    REPORTS {
+        int report_id PK
+        int listing_id FK
+        int reporter_id FK
+        varchar reason
+        timestamptz created_at
+        varchar status
+    }
+
+    SELLER_RATINGS {
+        int rating_id PK
+        int seller_id FK
+        int rater_id FK
+        int listing_id FK
+        int stars
+        text comment
+        timestamptz created_at
+    }
+
+    CITIES ||--o{ USERS : "has"
+    CITIES ||--o{ LISTINGS : "located in"
+
+    CATEGORIES o|--o{ CATEGORIES : "parent of"
+    CATEGORIES ||--o{ LISTINGS : "classifies"
+
+    BOOST_PACKAGES o|--o{ LISTINGS : "promotes"
+
+    USERS ||--o{ LISTINGS : "sells"
+
+    LISTINGS ||--o{ CHAT_THREADS : "has conversations"
+    USERS ||--o{ CHAT_THREADS : "starts as buyer"
+
+    CHAT_THREADS ||--o{ CHAT_MESSAGES : "contains"
+    USERS ||--o{ CHAT_MESSAGES : "sends"
+
+    LISTINGS ||--o{ OFFERS : "receives"
+    USERS ||--o{ OFFERS : "makes"
+
+    USERS ||--o{ FAVOURITES : "saves"
+    LISTINGS ||--o{ FAVOURITES : "is saved in"
+
+    LISTINGS ||--o{ REPORTS : "receives"
+    USERS ||--o{ REPORTS : "submits"
+
+    LISTINGS ||--o{ SELLER_RATINGS : "is rated through listing_id and seller_id"
+    USERS ||--o{ SELLER_RATINGS : "rates through rater_id"
