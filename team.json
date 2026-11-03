@@ -1,0 +1,11 @@
+{
+  "team_number": "",
+  "group_lead": {
+    "name": "Debanshika Das",
+    "enrollment_no": "2501010560",
+    "github": "DDas12345"
+  },
+  "members": [],
+  "postgres_version": "18.6",
+  "laptop_used_for_benchmarks": "MacBook Pro"
+}
