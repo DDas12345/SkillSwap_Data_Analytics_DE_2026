@@ -1,0 +1,63 @@
+=== W03 run 1 ===
+Insert on chat_messages  (cost=1048.52..1048.54 rows=0 width=0) (actual time=1.783..1.784 rows=0.00 loops=1)
+  Buffers: shared hit=47 read=9 dirtied=3
+  ->  Subquery Scan on "*SELECT*"  (cost=1048.52..1048.54 rows=1 width=53) (actual time=0.531..0.531 rows=1.00 loops=1)
+        Buffers: shared hit=32 read=2
+        ->  Result  (cost=1048.52..1048.53 rows=1 width=77) (actual time=0.529..0.529 rows=1.00 loops=1)
+              Buffers: shared hit=32 read=2
+              InitPlan 1
+                ->  Limit  (cost=0.29..1048.52 rows=1 width=4) (actual time=0.527..0.528 rows=1.00 loops=1)
+                      Buffers: shared hit=32 read=2
+                      ->  Index Scan Backward using chat_threads_pkey on chat_threads  (cost=0.29..2096.75 rows=2 width=4) (actual time=0.527..0.527 rows=1.00 loops=1)
+                            Filter: (buyer_id = 1042)
+                            Rows Removed by Filter: 3365
+                            Index Searches: 1
+                            Buffers: shared hit=32 read=2
+Planning:
+  Buffers: shared hit=80
+Planning Time: 0.171 ms
+Trigger for constraint fk_chat_messages_thread: time=0.083 calls=1
+Trigger for constraint fk_chat_messages_sender: time=0.137 calls=1
+Execution Time: 2.029 ms
+=== W03 run 2 ===
+Insert on chat_messages  (cost=1048.52..1048.54 rows=0 width=0) (actual time=0.211..0.212 rows=0.00 loops=1)
+  Buffers: shared hit=56 dirtied=1
+  ->  Subquery Scan on "*SELECT*"  (cost=1048.52..1048.54 rows=1 width=53) (actual time=0.153..0.153 rows=1.00 loops=1)
+        Buffers: shared hit=34
+        ->  Result  (cost=1048.52..1048.53 rows=1 width=77) (actual time=0.151..0.152 rows=1.00 loops=1)
+              Buffers: shared hit=34
+              InitPlan 1
+                ->  Limit  (cost=0.29..1048.52 rows=1 width=4) (actual time=0.151..0.151 rows=1.00 loops=1)
+                      Buffers: shared hit=34
+                      ->  Index Scan Backward using chat_threads_pkey on chat_threads  (cost=0.29..2096.75 rows=2 width=4) (actual time=0.150..0.150 rows=1.00 loops=1)
+                            Filter: (buyer_id = 1042)
+                            Rows Removed by Filter: 3365
+                            Index Searches: 1
+                            Buffers: shared hit=34
+Planning:
+  Buffers: shared hit=80
+Planning Time: 0.159 ms
+Trigger for constraint fk_chat_messages_thread: time=0.085 calls=1
+Trigger for constraint fk_chat_messages_sender: time=0.144 calls=1
+Execution Time: 0.463 ms
+=== W03 run 3 ===
+Insert on chat_messages  (cost=1048.52..1048.54 rows=0 width=0) (actual time=0.210..0.210 rows=0.00 loops=1)
+  Buffers: shared hit=56 dirtied=1
+  ->  Subquery Scan on "*SELECT*"  (cost=1048.52..1048.54 rows=1 width=53) (actual time=0.149..0.150 rows=1.00 loops=1)
+        Buffers: shared hit=34
+        ->  Result  (cost=1048.52..1048.53 rows=1 width=77) (actual time=0.148..0.148 rows=1.00 loops=1)
+              Buffers: shared hit=34
+              InitPlan 1
+                ->  Limit  (cost=0.29..1048.52 rows=1 width=4) (actual time=0.147..0.147 rows=1.00 loops=1)
+                      Buffers: shared hit=34
+                      ->  Index Scan Backward using chat_threads_pkey on chat_threads  (cost=0.29..2096.75 rows=2 width=4) (actual time=0.146..0.146 rows=1.00 loops=1)
+                            Filter: (buyer_id = 1042)
+                            Rows Removed by Filter: 3365
+                            Index Searches: 1
+                            Buffers: shared hit=34
+Planning:
+  Buffers: shared hit=80
+Planning Time: 0.155 ms
+Trigger for constraint fk_chat_messages_thread: time=0.076 calls=1
+Trigger for constraint fk_chat_messages_sender: time=0.141 calls=1
+Execution Time: 0.449 ms

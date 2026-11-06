@@ -1,0 +1,118 @@
+# CP2 – Baseline Query Timings
+
+## 1. Overview
+
+- Project: OLX Buy & Sell Database
+- Checkpoint: CP2 – Baseline Timings
+- Benchmark date: 6 November 2026
+- PostgreSQL: 18.6
+- Database: olx_de_dbms
+- Schema: olx
+- Queries: 30 (R01–R25 and W01–W05)
+- Runs per query: 3
+
+## 2. Dataset
+
+| Table | Rows |
+|---|---:|
+| cities | 10 |
+| categories | 12 |
+| boost_packages | 6 |
+| users | 50000 |
+| listings | 120000 |
+| chat_threads | 59855 |
+| chat_messages | 209529 |
+| offers | 19943 |
+| favourites | 70000 |
+| reports | 7999 |
+| seller_ratings | 11244 |
+
+All 11 table counts matched the expected seed data.
+
+## 3. Methodology
+
+The repository benchmark script was used with EXPLAIN (ANALYZE, BUFFERS).
+Each query was executed three times. Average, median, minimum and
+maximum execution times are recorded in milliseconds.
+
+Write queries W01–W05 are run in transactions and rolled back.
+The test listing and test message were checked after benchmarking;
+neither remained in the database.
+
+Raw execution plans are stored in benchmarks/results/baseline/.
+The summary is stored in benchmarks/results/baseline/summary.csv.
+
+## 4. Workload adjustment
+
+The original queries/workload_30.sql file was not modified.
+
+The original W01 and W03 inserts omitted required NOT NULL columns.
+A temporary workload copy at /tmp/workload_30_cp2.sql was used instead.
+
+The following values were supplied:
+- W01: is_negotiable = FALSE
+- W01: view_count = 0
+- W03: is_read = FALSE
+
+These are explicit benchmark assumptions, not schema defaults.
+The W01 and W03 timings therefore correspond to the corrected
+temporary workload.
+
+## 5. Baseline execution results
+
+All times are in milliseconds.
+
+| Query | Type | Average | Median | Minimum | Maximum | Scan nodes |
+|---|---|---:|---:|---:|---:|---|
+| R01 | READ | 9.484 | 8.526 | 7.580 | 12.346 | Seq Scan on listings |
+| R02 | READ | 6.089 | 6.121 | 5.479 | 6.666 | Seq Scan on listings |
+| R03 | READ | 20.615 | 19.175 | 18.591 | 24.078 | Seq Scan on listings |
+| R04 | READ | 0.404 | 0.403 | 0.357 | 0.453 | Index Scan using uq_listings_listing_seller on listings | Index Scan using users_pkey on users | Seq Scan on seller_ratings |
+| R05 | READ | 1.378 | 1.154 | 1.099 | 1.881 | Index Scan using uq_listings_listing_seller on listings |
+| R06 | READ | 70.340 | 69.728 | 67.110 | 74.182 | Seq Scan on listings | Seq Scan on chat_threads | Seq Scan on chat_messages |
+| R07 | READ | 5.735 | 5.503 | 5.254 | 6.447 | Seq Scan on chat_messages | Index Scan using chat_threads_pkey on chat_threads | Index Only Scan using uq_listings_listing_seller on listings |
+| R08 | READ | 5.633 | 5.662 | 5.425 | 5.813 | Seq Scan on listings |
+| R09 | READ | 6.700 | 6.786 | 6.342 | 6.971 | Seq Scan on listings |
+| R10 | READ | 5.275 | 5.281 | 5.210 | 5.333 | Seq Scan on listings |
+| R11 | READ | 1.840 | 1.841 | 1.802 | 1.877 | Seq Scan on reports | Index Scan using uq_listings_listing_seller on listings |
+| R12 | READ | 35.231 | 34.568 | 34.395 | 36.731 | Seq Scan on listings |
+| R13 | READ | 15.116 | 14.278 | 14.083 | 16.987 | Seq Scan on boost_packages | Seq Scan on listings |
+| R14 | READ | 8.980 | 8.994 | 8.875 | 9.072 | Seq Scan on listings | Seq Scan on categories |
+| R15 | READ | 11.709 | 11.525 | 11.477 | 12.125 | Seq Scan on listings | Seq Scan on offers | Seq Scan on categories |
+| R16 | READ | 11.800 | 11.773 | 11.737 | 11.890 | Seq Scan on listings | Seq Scan on favourites |
+| R17 | READ | 12.053 | 12.225 | 11.691 | 12.242 | Seq Scan on listings | Seq Scan on categories |
+| R18 | READ | 35.138 | 35.138 | 34.685 | 35.591 | Seq Scan on listings |
+| R19 | READ | 1775.574 | 1769.976 | 1766.312 | 1790.435 | Seq Scan on listings | Seq Scan on chat_threads | Seq Scan on chat_messages |
+| R20 | READ | 6.775 | 6.768 | 6.579 | 6.979 | Seq Scan on listings |
+| R21 | READ | 8.199 | 8.126 | 8.021 | 8.449 | Seq Scan on seller_ratings | Seq Scan on users |
+| R22 | READ | 30.429 | 30.049 | 29.833 | 31.404 | Seq Scan on listings |
+| R23 | READ | 0.032 | 0.028 | 0.026 | 0.041 | Index Scan using users_phone_key on users |
+| R24 | READ | 11.433 | 11.295 | 11.279 | 11.725 | Seq Scan on listings | Seq Scan on categories |
+| R25 | READ | 60.349 | 58.699 | 58.563 | 63.786 | Seq Scan on chat_messages | Seq Scan on chat_threads | Seq Scan on listings | Seq Scan on categories |
+| W01 | WRITE | 1.185 | 0.564 | 0.548 | 2.443 | (no scan) |
+| W02 | WRITE | 1.688 | 1.217 | 1.209 | 2.638 | Index Scan using uq_listings_listing_seller on listings |
+| W03 | WRITE | 0.980 | 0.463 | 0.449 | 2.029 | Index Scan using chat_threads_pkey on chat_threads |
+| W04 | WRITE | 76.275 | 19.367 | 18.958 | 190.500 | Seq Scan on listings |
+| W05 | WRITE | 1.735 | 1.259 | 1.160 | 2.787 | Seq Scan on offers |
+
+## 6. Index state
+
+The database contained 14 indexes associated with primary-key and
+unique constraints. No additional manually created optimization
+indexes were found during the baseline inspection.
+
+## 7. Key observations
+
+- R19 was the slowest read query: 1775.574 ms average.
+- W04 was the slowest write query: 76.275 ms average.
+- R23 was the fastest query: 0.032 ms average.
+- Sequential scans occurred across several large tables.
+- R19 is a candidate for further investigation during optimization.
+
+## 8. Benchmark artifacts
+
+- benchmarks/results/baseline/summary.csv
+- R01.txt through R25.txt
+- W01.txt through W05.txt
+
+Validation: 30 query results, 30 raw plan files, three runs per query.

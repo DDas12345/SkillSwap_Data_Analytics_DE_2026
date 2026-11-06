@@ -1,0 +1,48 @@
+=== R05 run 1 ===
+GroupAggregate  (cost=2227.85..2227.90 rows=2 width=22) (actual time=1.851..1.853 rows=3.00 loops=1)
+  Group Key: status
+  Buffers: shared hit=344
+  ->  Sort  (cost=2227.85..2227.86 rows=3 width=10) (actual time=1.845..1.846 rows=9.00 loops=1)
+        Sort Key: status
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=344
+        ->  Index Scan using uq_listings_listing_seller on listings  (cost=0.29..2227.83 rows=3 width=10) (actual time=0.021..1.816 rows=9.00 loops=1)
+              Index Cond: (seller_id = 1042)
+              Index Searches: 1
+              Buffers: shared hit=341
+Planning:
+  Buffers: shared hit=122
+Planning Time: 0.189 ms
+Execution Time: 1.881 ms
+=== R05 run 2 ===
+GroupAggregate  (cost=2227.85..2227.90 rows=2 width=22) (actual time=1.073..1.074 rows=3.00 loops=1)
+  Group Key: status
+  Buffers: shared hit=344
+  ->  Sort  (cost=2227.85..2227.86 rows=3 width=10) (actual time=1.068..1.068 rows=9.00 loops=1)
+        Sort Key: status
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=344
+        ->  Index Scan using uq_listings_listing_seller on listings  (cost=0.29..2227.83 rows=3 width=10) (actual time=0.021..1.049 rows=9.00 loops=1)
+              Index Cond: (seller_id = 1042)
+              Index Searches: 1
+              Buffers: shared hit=341
+Planning:
+  Buffers: shared hit=122
+Planning Time: 0.185 ms
+Execution Time: 1.099 ms
+=== R05 run 3 ===
+GroupAggregate  (cost=2227.85..2227.90 rows=2 width=22) (actual time=1.126..1.128 rows=3.00 loops=1)
+  Group Key: status
+  Buffers: shared hit=344
+  ->  Sort  (cost=2227.85..2227.86 rows=3 width=10) (actual time=1.119..1.120 rows=9.00 loops=1)
+        Sort Key: status
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=344
+        ->  Index Scan using uq_listings_listing_seller on listings  (cost=0.29..2227.83 rows=3 width=10) (actual time=0.021..1.100 rows=9.00 loops=1)
+              Index Cond: (seller_id = 1042)
+              Index Searches: 1
+              Buffers: shared hit=341
+Planning:
+  Buffers: shared hit=122
+Planning Time: 0.191 ms
+Execution Time: 1.154 ms

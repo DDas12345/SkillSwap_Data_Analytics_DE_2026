@@ -1,0 +1,99 @@
+=== R11 run 1 ===
+Sort  (cost=4637.10..4637.78 rows=272 width=61) (actual time=1.844..1.845 rows=44.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 29kB
+  Buffers: shared hit=2006
+  ->  GroupAggregate  (cost=4603.66..4626.10 rows=272 width=61) (actual time=1.694..1.833 rows=44.00 loops=1)
+        Group Key: r.listing_id, l.title
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 595
+        Buffers: shared hit=2003
+        ->  Sort  (cost=4603.66..4605.70 rows=816 width=30) (actual time=1.681..1.695 rows=816.00 loops=1)
+              Sort Key: r.listing_id, l.title, r.reason
+              Sort Method: quicksort  Memory: 64kB
+              Buffers: shared hit=2003
+              ->  Nested Loop  (cost=0.30..4564.19 rows=816 width=30) (actual time=0.015..1.588 rows=816.00 loops=1)
+                    Buffers: shared hit=1997
+                    ->  Seq Scan on reports r  (cost=0.00..179.99 rows=816 width=13) (actual time=0.005..0.331 rows=816.00 loops=1)
+                          Filter: ((status)::text = 'OPEN'::text)
+                          Rows Removed by Filter: 7183
+                          Buffers: shared hit=80
+                    ->  Memoize  (cost=0.30..5.60 rows=1 width=21) (actual time=0.001..0.001 rows=1.00 loops=816)
+                          Cache Key: r.listing_id
+                          Cache Mode: logical
+                          Hits: 177  Misses: 639  Evictions: 0  Overflows: 0  Memory Usage: 77kB
+                          Buffers: shared hit=1917
+                          ->  Index Scan using uq_listings_listing_seller on listings l  (cost=0.29..5.59 rows=1 width=21) (actual time=0.002..0.002 rows=1.00 loops=639)
+                                Index Cond: (listing_id = r.listing_id)
+                                Index Searches: 639
+                                Buffers: shared hit=1917
+Planning:
+  Buffers: shared hit=202
+Planning Time: 0.365 ms
+Execution Time: 1.877 ms
+=== R11 run 2 ===
+Sort  (cost=4637.10..4637.78 rows=272 width=61) (actual time=1.770..1.771 rows=44.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 29kB
+  Buffers: shared hit=2006
+  ->  GroupAggregate  (cost=4603.66..4626.10 rows=272 width=61) (actual time=1.623..1.759 rows=44.00 loops=1)
+        Group Key: r.listing_id, l.title
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 595
+        Buffers: shared hit=2003
+        ->  Sort  (cost=4603.66..4605.70 rows=816 width=30) (actual time=1.611..1.626 rows=816.00 loops=1)
+              Sort Key: r.listing_id, l.title, r.reason
+              Sort Method: quicksort  Memory: 64kB
+              Buffers: shared hit=2003
+              ->  Nested Loop  (cost=0.30..4564.19 rows=816 width=30) (actual time=0.013..1.515 rows=816.00 loops=1)
+                    Buffers: shared hit=1997
+                    ->  Seq Scan on reports r  (cost=0.00..179.99 rows=816 width=13) (actual time=0.004..0.284 rows=816.00 loops=1)
+                          Filter: ((status)::text = 'OPEN'::text)
+                          Rows Removed by Filter: 7183
+                          Buffers: shared hit=80
+                    ->  Memoize  (cost=0.30..5.60 rows=1 width=21) (actual time=0.001..0.001 rows=1.00 loops=816)
+                          Cache Key: r.listing_id
+                          Cache Mode: logical
+                          Hits: 177  Misses: 639  Evictions: 0  Overflows: 0  Memory Usage: 77kB
+                          Buffers: shared hit=1917
+                          ->  Index Scan using uq_listings_listing_seller on listings l  (cost=0.29..5.59 rows=1 width=21) (actual time=0.002..0.002 rows=1.00 loops=639)
+                                Index Cond: (listing_id = r.listing_id)
+                                Index Searches: 639
+                                Buffers: shared hit=1917
+Planning:
+  Buffers: shared hit=202
+Planning Time: 0.319 ms
+Execution Time: 1.802 ms
+=== R11 run 3 ===
+Sort  (cost=4637.10..4637.78 rows=272 width=61) (actual time=1.807..1.808 rows=44.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 29kB
+  Buffers: shared hit=2006
+  ->  GroupAggregate  (cost=4603.66..4626.10 rows=272 width=61) (actual time=1.656..1.796 rows=44.00 loops=1)
+        Group Key: r.listing_id, l.title
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 595
+        Buffers: shared hit=2003
+        ->  Sort  (cost=4603.66..4605.70 rows=816 width=30) (actual time=1.643..1.657 rows=816.00 loops=1)
+              Sort Key: r.listing_id, l.title, r.reason
+              Sort Method: quicksort  Memory: 64kB
+              Buffers: shared hit=2003
+              ->  Nested Loop  (cost=0.30..4564.19 rows=816 width=30) (actual time=0.013..1.547 rows=816.00 loops=1)
+                    Buffers: shared hit=1997
+                    ->  Seq Scan on reports r  (cost=0.00..179.99 rows=816 width=13) (actual time=0.004..0.280 rows=816.00 loops=1)
+                          Filter: ((status)::text = 'OPEN'::text)
+                          Rows Removed by Filter: 7183
+                          Buffers: shared hit=80
+                    ->  Memoize  (cost=0.30..5.60 rows=1 width=21) (actual time=0.001..0.001 rows=1.00 loops=816)
+                          Cache Key: r.listing_id
+                          Cache Mode: logical
+                          Hits: 177  Misses: 639  Evictions: 0  Overflows: 0  Memory Usage: 77kB
+                          Buffers: shared hit=1917
+                          ->  Index Scan using uq_listings_listing_seller on listings l  (cost=0.29..5.59 rows=1 width=21) (actual time=0.002..0.002 rows=1.00 loops=639)
+                                Index Cond: (listing_id = r.listing_id)
+                                Index Searches: 639
+                                Buffers: shared hit=1917
+Planning:
+  Buffers: shared hit=202
+Planning Time: 0.324 ms
+Execution Time: 1.841 ms
