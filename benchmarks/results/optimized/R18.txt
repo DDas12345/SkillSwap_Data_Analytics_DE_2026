@@ -1,0 +1,85 @@
+=== R18 run 1 ===
+Sort  (cost=8436.48..8467.71 rows=12495 width=34) (actual time=34.412..34.413 rows=12.00 loops=1)
+  Sort Key: (count(*)) DESC, seller_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=4683, temp read=169 written=332
+  ->  HashAggregate  (cost=7117.70..7586.25 rows=12495 width=34) (actual time=25.699..34.404 rows=12.00 loops=1)
+        Group Key: seller_id, title, price
+        Filter: (count(*) > 1)
+        Batches: 5  Memory Usage: 8249kB  Disk Usage: 1680kB
+        Rows Removed by Filter: 119976
+        Buffers: shared hit=4677, temp read=169 written=332
+        ->  Seq Scan on listings  (cost=0.00..5897.35 rows=122035 width=26) (actual time=0.004..5.287 rows=120000.00 loops=1)
+              Buffers: shared hit=4677
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.344 ms
+Execution Time: 34.958 ms
+=== R18 run 2 ===
+Sort  (cost=8436.48..8467.71 rows=12495 width=34) (actual time=34.087..34.088 rows=12.00 loops=1)
+  Sort Key: (count(*)) DESC, seller_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=4683, temp read=169 written=332
+  ->  HashAggregate  (cost=7117.70..7586.25 rows=12495 width=34) (actual time=25.438..34.078 rows=12.00 loops=1)
+        Group Key: seller_id, title, price
+        Filter: (count(*) > 1)
+        Batches: 5  Memory Usage: 8249kB  Disk Usage: 1680kB
+        Rows Removed by Filter: 119976
+        Buffers: shared hit=4677, temp read=169 written=332
+        ->  Seq Scan on listings  (cost=0.00..5897.35 rows=122035 width=26) (actual time=0.004..5.227 rows=120000.00 loops=1)
+              Buffers: shared hit=4677
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.311 ms
+Execution Time: 35.470 ms
+=== R18 run 3 ===
+Sort  (cost=8436.48..8467.71 rows=12495 width=34) (actual time=36.701..36.702 rows=12.00 loops=1)
+  Sort Key: (count(*)) DESC, seller_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=4683, temp read=169 written=332
+  ->  HashAggregate  (cost=7117.70..7586.25 rows=12495 width=34) (actual time=26.330..36.689 rows=12.00 loops=1)
+        Group Key: seller_id, title, price
+        Filter: (count(*) > 1)
+        Batches: 5  Memory Usage: 8249kB  Disk Usage: 1680kB
+        Rows Removed by Filter: 119976
+        Buffers: shared hit=4677, temp read=169 written=332
+        ->  Seq Scan on listings  (cost=0.00..5897.35 rows=122035 width=26) (actual time=0.006..5.335 rows=120000.00 loops=1)
+              Buffers: shared hit=4677
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.375 ms
+Execution Time: 37.249 ms
+=== R18 run 4 ===
+Sort  (cost=8436.48..8467.71 rows=12495 width=34) (actual time=36.565..36.566 rows=12.00 loops=1)
+  Sort Key: (count(*)) DESC, seller_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=4683, temp read=169 written=332
+  ->  HashAggregate  (cost=7117.70..7586.25 rows=12495 width=34) (actual time=26.680..36.555 rows=12.00 loops=1)
+        Group Key: seller_id, title, price
+        Filter: (count(*) > 1)
+        Batches: 5  Memory Usage: 8249kB  Disk Usage: 1680kB
+        Rows Removed by Filter: 119976
+        Buffers: shared hit=4677, temp read=169 written=332
+        ->  Seq Scan on listings  (cost=0.00..5897.35 rows=122035 width=26) (actual time=0.005..5.478 rows=120000.00 loops=1)
+              Buffers: shared hit=4677
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.403 ms
+Execution Time: 37.053 ms
+=== R18 run 5 ===
+Sort  (cost=8436.48..8467.71 rows=12495 width=34) (actual time=38.858..38.859 rows=12.00 loops=1)
+  Sort Key: (count(*)) DESC, seller_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=4683, temp read=169 written=332
+  ->  HashAggregate  (cost=7117.70..7586.25 rows=12495 width=34) (actual time=29.388..38.847 rows=12.00 loops=1)
+        Group Key: seller_id, title, price
+        Filter: (count(*) > 1)
+        Batches: 5  Memory Usage: 8249kB  Disk Usage: 1680kB
+        Rows Removed by Filter: 119976
+        Buffers: shared hit=4677, temp read=169 written=332
+        ->  Seq Scan on listings  (cost=0.00..5897.35 rows=122035 width=26) (actual time=0.004..5.892 rows=120000.00 loops=1)
+              Buffers: shared hit=4677
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.356 ms
+Execution Time: 39.673 ms

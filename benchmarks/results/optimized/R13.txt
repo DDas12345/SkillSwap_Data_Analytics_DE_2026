@@ -1,0 +1,75 @@
+=== R13 run 1 ===
+Hash Right Anti Join  (cost=1.14..7123.92 rows=2 width=26) (actual time=10.853..10.855 rows=2.00 loops=1)
+  Hash Cond: (l.boost_package_id = b.package_id)
+  Buffers: shared hit=4678
+  ->  Seq Scan on listings l  (cost=0.00..5897.35 rows=122035 width=4) (actual time=0.006..5.137 rows=120000.00 loops=1)
+        Buffers: shared hit=4677
+  ->  Hash  (cost=1.06..1.06 rows=6 width=26) (actual time=0.006..0.006 rows=6.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=1
+        ->  Seq Scan on boost_packages b  (cost=0.00..1.06 rows=6 width=26) (actual time=0.002..0.002 rows=6.00 loops=1)
+              Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=289
+Planning Time: 0.652 ms
+Execution Time: 10.883 ms
+=== R13 run 2 ===
+Hash Right Anti Join  (cost=1.14..7123.92 rows=2 width=26) (actual time=10.527..10.529 rows=2.00 loops=1)
+  Hash Cond: (l.boost_package_id = b.package_id)
+  Buffers: shared hit=4678
+  ->  Seq Scan on listings l  (cost=0.00..5897.35 rows=122035 width=4) (actual time=0.006..4.983 rows=120000.00 loops=1)
+        Buffers: shared hit=4677
+  ->  Hash  (cost=1.06..1.06 rows=6 width=26) (actual time=0.005..0.005 rows=6.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=1
+        ->  Seq Scan on boost_packages b  (cost=0.00..1.06 rows=6 width=26) (actual time=0.001..0.002 rows=6.00 loops=1)
+              Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=289
+Planning Time: 0.421 ms
+Execution Time: 10.554 ms
+=== R13 run 3 ===
+Hash Right Anti Join  (cost=1.14..7123.92 rows=2 width=26) (actual time=10.599..10.601 rows=2.00 loops=1)
+  Hash Cond: (l.boost_package_id = b.package_id)
+  Buffers: shared hit=4678
+  ->  Seq Scan on listings l  (cost=0.00..5897.35 rows=122035 width=4) (actual time=0.005..5.019 rows=120000.00 loops=1)
+        Buffers: shared hit=4677
+  ->  Hash  (cost=1.06..1.06 rows=6 width=26) (actual time=0.005..0.006 rows=6.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=1
+        ->  Seq Scan on boost_packages b  (cost=0.00..1.06 rows=6 width=26) (actual time=0.002..0.002 rows=6.00 loops=1)
+              Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=289
+Planning Time: 0.435 ms
+Execution Time: 10.628 ms
+=== R13 run 4 ===
+Hash Right Anti Join  (cost=1.14..7123.92 rows=2 width=26) (actual time=10.676..10.678 rows=2.00 loops=1)
+  Hash Cond: (l.boost_package_id = b.package_id)
+  Buffers: shared hit=4678
+  ->  Seq Scan on listings l  (cost=0.00..5897.35 rows=122035 width=4) (actual time=0.006..4.966 rows=120000.00 loops=1)
+        Buffers: shared hit=4677
+  ->  Hash  (cost=1.06..1.06 rows=6 width=26) (actual time=0.005..0.005 rows=6.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=1
+        ->  Seq Scan on boost_packages b  (cost=0.00..1.06 rows=6 width=26) (actual time=0.002..0.002 rows=6.00 loops=1)
+              Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=289
+Planning Time: 0.417 ms
+Execution Time: 10.704 ms
+=== R13 run 5 ===
+Hash Right Anti Join  (cost=1.14..7123.92 rows=2 width=26) (actual time=10.689..10.691 rows=2.00 loops=1)
+  Hash Cond: (l.boost_package_id = b.package_id)
+  Buffers: shared hit=4678
+  ->  Seq Scan on listings l  (cost=0.00..5897.35 rows=122035 width=4) (actual time=0.006..5.008 rows=120000.00 loops=1)
+        Buffers: shared hit=4677
+  ->  Hash  (cost=1.06..1.06 rows=6 width=26) (actual time=0.005..0.006 rows=6.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=1
+        ->  Seq Scan on boost_packages b  (cost=0.00..1.06 rows=6 width=26) (actual time=0.002..0.002 rows=6.00 loops=1)
+              Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=289
+Planning Time: 0.435 ms
+Execution Time: 10.719 ms

@@ -1,0 +1,140 @@
+=== R20 run 1 ===
+WindowAgg  (cost=6184.90..6275.62 rows=610 width=44) (actual time=4.844..5.447 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((listings.posted_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=5571
+  ->  GroupAggregate  (cost=6184.75..6266.47 rows=610 width=12) (actual time=4.815..5.427 rows=30.00 loops=1)
+        Group Key: ((listings.posted_at)::date)
+        Buffers: shared hit=5571
+        ->  Gather Merge  (cost=6184.75..6255.80 rows=610 width=4) (actual time=4.793..5.265 rows=6576.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=5571
+              ->  Sort  (cost=5184.73..5185.36 rows=254 width=4) (actual time=3.618..3.658 rows=2192.00 loops=3)
+                    Sort Key: ((listings.posted_at)::date)
+                    Sort Method: quicksort  Memory: 193kB
+                    Buffers: shared hit=5571
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    Worker 1:  Sort Method: quicksort  Memory: 25kB
+                    ->  Parallel Index Only Scan using idx_listings_posted_desc on listings  (cost=0.42..5174.58 rows=254 width=4) (actual time=2.032..3.524 rows=2192.00 loops=3)
+                          Filter: (((posted_at)::date >= '2026-06-01'::date) AND ((posted_at)::date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 37808
+                          Heap Fetches: 52236
+                          Index Searches: 1
+                          Buffers: shared hit=5495
+Planning:
+  Buffers: shared hit=187
+Planning Time: 0.325 ms
+Execution Time: 5.498 ms
+=== R20 run 2 ===
+WindowAgg  (cost=6184.90..6275.62 rows=610 width=44) (actual time=4.839..5.451 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((listings.posted_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=2663
+  ->  GroupAggregate  (cost=6184.75..6266.47 rows=610 width=12) (actual time=4.810..5.431 rows=30.00 loops=1)
+        Group Key: ((listings.posted_at)::date)
+        Buffers: shared hit=2663
+        ->  Gather Merge  (cost=6184.75..6255.80 rows=610 width=4) (actual time=4.790..5.270 rows=6576.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=2663
+              ->  Sort  (cost=5184.73..5185.36 rows=254 width=4) (actual time=3.615..3.655 rows=2192.00 loops=3)
+                    Sort Key: ((listings.posted_at)::date)
+                    Sort Method: quicksort  Memory: 193kB
+                    Buffers: shared hit=2663
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    Worker 1:  Sort Method: quicksort  Memory: 25kB
+                    ->  Parallel Index Only Scan using idx_listings_posted_desc on listings  (cost=0.42..5174.58 rows=254 width=4) (actual time=2.031..3.517 rows=2192.00 loops=3)
+                          Filter: (((posted_at)::date >= '2026-06-01'::date) AND ((posted_at)::date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 37808
+                          Heap Fetches: 50660
+                          Index Searches: 1
+                          Buffers: shared hit=2587
+Planning:
+  Buffers: shared hit=187
+Planning Time: 0.319 ms
+Execution Time: 5.491 ms
+=== R20 run 3 ===
+WindowAgg  (cost=6184.90..6275.62 rows=610 width=44) (actual time=4.845..5.410 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((listings.posted_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=2664
+  ->  GroupAggregate  (cost=6184.75..6266.47 rows=610 width=12) (actual time=4.812..5.386 rows=30.00 loops=1)
+        Group Key: ((listings.posted_at)::date)
+        Buffers: shared hit=2664
+        ->  Gather Merge  (cost=6184.75..6255.80 rows=610 width=4) (actual time=4.791..5.225 rows=6576.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=2664
+              ->  Sort  (cost=5184.73..5185.36 rows=254 width=4) (actual time=3.595..3.635 rows=2192.00 loops=3)
+                    Sort Key: ((listings.posted_at)::date)
+                    Sort Method: quicksort  Memory: 193kB
+                    Buffers: shared hit=2664
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    Worker 1:  Sort Method: quicksort  Memory: 25kB
+                    ->  Parallel Index Only Scan using idx_listings_posted_desc on listings  (cost=0.42..5174.58 rows=254 width=4) (actual time=2.009..3.503 rows=2192.00 loops=3)
+                          Filter: (((posted_at)::date >= '2026-06-01'::date) AND ((posted_at)::date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 37808
+                          Heap Fetches: 50660
+                          Index Searches: 1
+                          Buffers: shared hit=2588
+Planning:
+  Buffers: shared hit=187
+Planning Time: 0.324 ms
+Execution Time: 5.455 ms
+=== R20 run 4 ===
+WindowAgg  (cost=6184.90..6275.62 rows=610 width=44) (actual time=5.102..5.732 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((listings.posted_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=2661
+  ->  GroupAggregate  (cost=6184.75..6266.47 rows=610 width=12) (actual time=5.071..5.710 rows=30.00 loops=1)
+        Group Key: ((listings.posted_at)::date)
+        Buffers: shared hit=2661
+        ->  Gather Merge  (cost=6184.75..6255.80 rows=610 width=4) (actual time=5.051..5.550 rows=6576.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=2661
+              ->  Sort  (cost=5184.73..5185.36 rows=254 width=4) (actual time=3.613..3.652 rows=2192.00 loops=3)
+                    Sort Key: ((listings.posted_at)::date)
+                    Sort Method: quicksort  Memory: 193kB
+                    Buffers: shared hit=2661
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    Worker 1:  Sort Method: quicksort  Memory: 25kB
+                    ->  Parallel Index Only Scan using idx_listings_posted_desc on listings  (cost=0.42..5174.58 rows=254 width=4) (actual time=1.938..3.519 rows=2192.00 loops=3)
+                          Filter: (((posted_at)::date >= '2026-06-01'::date) AND ((posted_at)::date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 37808
+                          Heap Fetches: 50660
+                          Index Searches: 1
+                          Buffers: shared hit=2585
+Planning:
+  Buffers: shared hit=187
+Planning Time: 0.304 ms
+Execution Time: 5.770 ms
+=== R20 run 5 ===
+WindowAgg  (cost=6184.90..6275.62 rows=610 width=44) (actual time=4.691..5.224 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((listings.posted_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=2666
+  ->  GroupAggregate  (cost=6184.75..6266.47 rows=610 width=12) (actual time=4.660..5.203 rows=30.00 loops=1)
+        Group Key: ((listings.posted_at)::date)
+        Buffers: shared hit=2666
+        ->  Gather Merge  (cost=6184.75..6255.80 rows=610 width=4) (actual time=4.640..5.041 rows=6576.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=2666
+              ->  Sort  (cost=5184.73..5185.36 rows=254 width=4) (actual time=3.483..3.523 rows=2192.00 loops=3)
+                    Sort Key: ((listings.posted_at)::date)
+                    Sort Method: quicksort  Memory: 193kB
+                    Buffers: shared hit=2666
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    Worker 1:  Sort Method: quicksort  Memory: 25kB
+                    ->  Parallel Index Only Scan using idx_listings_posted_desc on listings  (cost=0.42..5174.58 rows=254 width=4) (actual time=1.947..3.390 rows=2192.00 loops=3)
+                          Filter: (((posted_at)::date >= '2026-06-01'::date) AND ((posted_at)::date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 37808
+                          Heap Fetches: 50660
+                          Index Searches: 1
+                          Buffers: shared hit=2590
+Planning:
+  Buffers: shared hit=187
+Planning Time: 0.308 ms
+Execution Time: 5.262 ms

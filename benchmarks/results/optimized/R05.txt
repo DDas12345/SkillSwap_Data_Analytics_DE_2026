@@ -1,0 +1,80 @@
+=== R05 run 1 ===
+GroupAggregate  (cost=2243.12..2243.17 rows=2 width=22) (actual time=1.469..1.470 rows=3.00 loops=1)
+  Group Key: status
+  Buffers: shared hit=348
+  ->  Sort  (cost=2243.12..2243.12 rows=3 width=10) (actual time=1.463..1.464 rows=9.00 loops=1)
+        Sort Key: status
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=348
+        ->  Index Scan using uq_listings_listing_seller on listings  (cost=0.29..2243.09 rows=3 width=10) (actual time=0.027..1.443 rows=9.00 loops=1)
+              Index Cond: (seller_id = 1042)
+              Index Searches: 1
+              Buffers: shared hit=345
+Planning:
+  Buffers: shared hit=204
+Planning Time: 0.331 ms
+Execution Time: 1.498 ms
+=== R05 run 2 ===
+GroupAggregate  (cost=2243.12..2243.17 rows=2 width=22) (actual time=1.179..1.180 rows=3.00 loops=1)
+  Group Key: status
+  Buffers: shared hit=344
+  ->  Sort  (cost=2243.12..2243.12 rows=3 width=10) (actual time=1.174..1.175 rows=9.00 loops=1)
+        Sort Key: status
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=344
+        ->  Index Scan using uq_listings_listing_seller on listings  (cost=0.29..2243.09 rows=3 width=10) (actual time=0.023..1.156 rows=9.00 loops=1)
+              Index Cond: (seller_id = 1042)
+              Index Searches: 1
+              Buffers: shared hit=341
+Planning:
+  Buffers: shared hit=204
+Planning Time: 0.306 ms
+Execution Time: 1.207 ms
+=== R05 run 3 ===
+GroupAggregate  (cost=2243.12..2243.17 rows=2 width=22) (actual time=1.307..1.308 rows=3.00 loops=1)
+  Group Key: status
+  Buffers: shared hit=344
+  ->  Sort  (cost=2243.12..2243.12 rows=3 width=10) (actual time=1.302..1.302 rows=9.00 loops=1)
+        Sort Key: status
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=344
+        ->  Index Scan using uq_listings_listing_seller on listings  (cost=0.29..2243.09 rows=3 width=10) (actual time=0.027..1.279 rows=9.00 loops=1)
+              Index Cond: (seller_id = 1042)
+              Index Searches: 1
+              Buffers: shared hit=341
+Planning:
+  Buffers: shared hit=204
+Planning Time: 0.372 ms
+Execution Time: 1.336 ms
+=== R05 run 4 ===
+GroupAggregate  (cost=2243.12..2243.17 rows=2 width=22) (actual time=1.164..1.166 rows=3.00 loops=1)
+  Group Key: status
+  Buffers: shared hit=344
+  ->  Sort  (cost=2243.12..2243.12 rows=3 width=10) (actual time=1.159..1.160 rows=9.00 loops=1)
+        Sort Key: status
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=344
+        ->  Index Scan using uq_listings_listing_seller on listings  (cost=0.29..2243.09 rows=3 width=10) (actual time=0.022..1.142 rows=9.00 loops=1)
+              Index Cond: (seller_id = 1042)
+              Index Searches: 1
+              Buffers: shared hit=341
+Planning:
+  Buffers: shared hit=204
+Planning Time: 0.292 ms
+Execution Time: 1.190 ms
+=== R05 run 5 ===
+GroupAggregate  (cost=2243.12..2243.17 rows=2 width=22) (actual time=1.333..1.335 rows=3.00 loops=1)
+  Group Key: status
+  Buffers: shared hit=344
+  ->  Sort  (cost=2243.12..2243.12 rows=3 width=10) (actual time=1.328..1.328 rows=9.00 loops=1)
+        Sort Key: status
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=344
+        ->  Index Scan using uq_listings_listing_seller on listings  (cost=0.29..2243.09 rows=3 width=10) (actual time=0.023..1.303 rows=9.00 loops=1)
+              Index Cond: (seller_id = 1042)
+              Index Searches: 1
+              Buffers: shared hit=341
+Planning:
+  Buffers: shared hit=204
+Planning Time: 0.318 ms
+Execution Time: 1.366 ms
