@@ -1,6 +1,6 @@
 # OLX Used Goods Marketplace Database: DBMS Project
 
-**Course:** Database Management Systems · **Year:** B.Tech 2nd year · **Team size:** 4
+**Course:** Database Management Systems · **Year:** B.Tech 2nd year
 **Database:** PostgreSQL 15 or newer · **Team size:** 1 (individual work) · **Final submission:** Mon 23 Nov 2026
 **Topics used:** Data types & constraints · Keys & relationships · Normalization · Query execution plans · Indexing · Query optimization · VACUUM/ANALYZE · Partitioning & sharding
 
