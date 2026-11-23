@@ -1,0 +1,2 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R06,READ,0.182,0.170,0.166,0.209,Index Scan using idx_chat_threads_buyer_thread on chat_threads | Index Only Scan using idx_listings_seller_listing on listings | Index Scan using idx_chat_threads_listing on chat_threads | Index Scan using uq_listings_listing_seller on listings | Index Scan using idx_chat_messages_thread_sent on chat_messages

@@ -1,0 +1,57 @@
+=== R02 run 1 ===
+Sort  (cost=8865.32..8865.33 rows=1 width=102) (actual time=7.553..7.558 rows=85.00 loops=1)
+  Sort Key: price
+  Sort Method: quicksort  Memory: 42kB
+  Buffers: shared hit=279 read=2227
+  ->  Bitmap Heap Scan on listings  (cost=65.65..8865.31 rows=1 width=102) (actual time=1.278..7.509 rows=85.00 loops=1)
+        Recheck Cond: ((city_id = 6) AND (category_id = 2) AND ((status)::text = 'ACTIVE'::text))
+        Filter: (((attributes ->> 'fuel'::text) = 'Diesel'::text) AND (((attributes ->> 'year'::text))::integer >= 2018) AND (((attributes ->> 'km_driven'::text))::integer <= 60000))
+        Rows Removed by Filter: 2621
+        Heap Blocks: exact=2490
+        Buffers: shared hit=276 read=2227
+        ->  Bitmap Index Scan on idx_listings_active_city_category_posted  (cost=0.00..65.65 rows=2523 width=0) (actual time=0.874..0.874 rows=2706.00 loops=1)
+              Index Cond: ((city_id = 6) AND (category_id = 2))
+              Index Searches: 1
+              Buffers: shared hit=1 read=12
+Planning:
+  Buffers: shared hit=239
+Planning Time: 0.516 ms
+Execution Time: 7.593 ms
+=== R02 run 2 ===
+Sort  (cost=8865.32..8865.33 rows=1 width=102) (actual time=3.136..3.139 rows=85.00 loops=1)
+  Sort Key: price
+  Sort Method: quicksort  Memory: 42kB
+  Buffers: shared hit=2506
+  ->  Bitmap Heap Scan on listings  (cost=65.65..8865.31 rows=1 width=102) (actual time=0.477..3.103 rows=85.00 loops=1)
+        Recheck Cond: ((city_id = 6) AND (category_id = 2) AND ((status)::text = 'ACTIVE'::text))
+        Filter: (((attributes ->> 'fuel'::text) = 'Diesel'::text) AND (((attributes ->> 'year'::text))::integer >= 2018) AND (((attributes ->> 'km_driven'::text))::integer <= 60000))
+        Rows Removed by Filter: 2621
+        Heap Blocks: exact=2490
+        Buffers: shared hit=2503
+        ->  Bitmap Index Scan on idx_listings_active_city_category_posted  (cost=0.00..65.65 rows=2523 width=0) (actual time=0.207..0.207 rows=2706.00 loops=1)
+              Index Cond: ((city_id = 6) AND (category_id = 2))
+              Index Searches: 1
+              Buffers: shared hit=13
+Planning:
+  Buffers: shared hit=239
+Planning Time: 0.453 ms
+Execution Time: 3.166 ms
+=== R02 run 3 ===
+Sort  (cost=8865.32..8865.33 rows=1 width=102) (actual time=3.147..3.149 rows=85.00 loops=1)
+  Sort Key: price
+  Sort Method: quicksort  Memory: 42kB
+  Buffers: shared hit=2506
+  ->  Bitmap Heap Scan on listings  (cost=65.65..8865.31 rows=1 width=102) (actual time=0.458..3.116 rows=85.00 loops=1)
+        Recheck Cond: ((city_id = 6) AND (category_id = 2) AND ((status)::text = 'ACTIVE'::text))
+        Filter: (((attributes ->> 'fuel'::text) = 'Diesel'::text) AND (((attributes ->> 'year'::text))::integer >= 2018) AND (((attributes ->> 'km_driven'::text))::integer <= 60000))
+        Rows Removed by Filter: 2621
+        Heap Blocks: exact=2490
+        Buffers: shared hit=2503
+        ->  Bitmap Index Scan on idx_listings_active_city_category_posted  (cost=0.00..65.65 rows=2523 width=0) (actual time=0.202..0.202 rows=2706.00 loops=1)
+              Index Cond: ((city_id = 6) AND (category_id = 2))
+              Index Searches: 1
+              Buffers: shared hit=13
+Planning:
+  Buffers: shared hit=239
+Planning Time: 0.441 ms
+Execution Time: 3.175 ms

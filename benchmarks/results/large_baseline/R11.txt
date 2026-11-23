@@ -1,0 +1,99 @@
+=== R11 run 1 ===
+Sort  (cost=62119.78..62133.46 rows=5473 width=61) (actual time=33.605..34.406 rows=300.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 67kB
+  Buffers: shared hit=51826 read=13237
+  ->  GroupAggregate  (cost=59498.06..61779.96 rows=5473 width=61) (actual time=30.464..34.359 rows=300.00 loops=1)
+        Group Key: r.listing_id, l.title
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 7829
+        Buffers: shared hit=51823 read=13237
+        ->  Gather Merge  (cost=59498.06..61369.46 rows=16420 width=30) (actual time=30.451..32.427 rows=15873.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=51823 read=13237
+              ->  Sort  (cost=58498.05..58522.20 rows=9659 width=30) (actual time=28.902..29.070 rows=7936.50 loops=2)
+                    Sort Key: r.listing_id, l.title, r.reason
+                    Sort Method: quicksort  Memory: 787kB
+                    Buffers: shared hit=51823 read=13237
+                    Worker 0:  Sort Method: quicksort  Memory: 561kB
+                    ->  Nested Loop  (cost=0.43..57858.74 rows=9659 width=30) (actual time=0.061..27.461 rows=7936.50 loops=2)
+                          Buffers: shared hit=51808 read=13237
+                          ->  Parallel Seq Scan on reports r  (cost=0.00..2728.35 rows=9659 width=13) (actual time=0.031..3.738 rows=7936.50 loops=2)
+                                Filter: ((status)::text = 'OPEN'::text)
+                                Rows Removed by Filter: 72055
+                                Buffers: shared read=1552
+                          ->  Index Scan using uq_listings_listing_seller on listings l  (cost=0.43..5.71 rows=1 width=21) (actual time=0.003..0.003 rows=1.00 loops=15873)
+                                Index Cond: (listing_id = r.listing_id)
+                                Index Searches: 15873
+                                Buffers: shared hit=51808 read=11685
+Planning:
+  Buffers: shared hit=271 read=10
+Planning Time: 0.739 ms
+Execution Time: 34.451 ms
+=== R11 run 2 ===
+Sort  (cost=62119.78..62133.46 rows=5473 width=61) (actual time=28.623..29.338 rows=300.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 67kB
+  Buffers: shared hit=57244 read=7819
+  ->  GroupAggregate  (cost=59498.06..61779.96 rows=5473 width=61) (actual time=25.538..29.294 rows=300.00 loops=1)
+        Group Key: r.listing_id, l.title
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 7829
+        Buffers: shared hit=57241 read=7819
+        ->  Gather Merge  (cost=59498.06..61369.46 rows=16420 width=30) (actual time=25.525..27.403 rows=15873.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=57241 read=7819
+              ->  Sort  (cost=58498.05..58522.20 rows=9659 width=30) (actual time=24.475..24.636 rows=7936.50 loops=2)
+                    Sort Key: r.listing_id, l.title, r.reason
+                    Sort Method: quicksort  Memory: 784kB
+                    Buffers: shared hit=57241 read=7819
+                    Worker 0:  Sort Method: quicksort  Memory: 564kB
+                    ->  Nested Loop  (cost=0.43..57858.74 rows=9659 width=30) (actual time=0.046..23.040 rows=7936.50 loops=2)
+                          Buffers: shared hit=57226 read=7819
+                          ->  Parallel Seq Scan on reports r  (cost=0.00..2728.35 rows=9659 width=13) (actual time=0.026..3.556 rows=7936.50 loops=2)
+                                Filter: ((status)::text = 'OPEN'::text)
+                                Rows Removed by Filter: 72055
+                                Buffers: shared hit=305 read=1247
+                          ->  Index Scan using uq_listings_listing_seller on listings l  (cost=0.43..5.71 rows=1 width=21) (actual time=0.002..0.002 rows=1.00 loops=15873)
+                                Index Cond: (listing_id = r.listing_id)
+                                Index Searches: 15873
+                                Buffers: shared hit=56921 read=6572
+Planning:
+  Buffers: shared hit=276 read=5
+Planning Time: 0.479 ms
+Execution Time: 29.378 ms
+=== R11 run 3 ===
+Sort  (cost=62119.78..62133.46 rows=5473 width=61) (actual time=20.950..21.699 rows=300.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 67kB
+  Buffers: shared hit=65056 read=7
+  ->  GroupAggregate  (cost=59498.06..61779.96 rows=5473 width=61) (actual time=17.887..21.650 rows=300.00 loops=1)
+        Group Key: r.listing_id, l.title
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 7829
+        Buffers: shared hit=65053 read=7
+        ->  Gather Merge  (cost=59498.06..61369.46 rows=16420 width=30) (actual time=17.870..19.780 rows=15873.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=65053 read=7
+              ->  Sort  (cost=58498.05..58522.20 rows=9659 width=30) (actual time=16.826..16.991 rows=7936.50 loops=2)
+                    Sort Key: r.listing_id, l.title, r.reason
+                    Sort Method: quicksort  Memory: 796kB
+                    Buffers: shared hit=65053 read=7
+                    Worker 0:  Sort Method: quicksort  Memory: 552kB
+                    ->  Nested Loop  (cost=0.43..57858.74 rows=9659 width=30) (actual time=0.011..15.456 rows=7936.50 loops=2)
+                          Buffers: shared hit=65038 read=7
+                          ->  Parallel Seq Scan on reports r  (cost=0.00..2728.35 rows=9659 width=13) (actual time=0.002..3.079 rows=7936.50 loops=2)
+                                Filter: ((status)::text = 'OPEN'::text)
+                                Rows Removed by Filter: 72055
+                                Buffers: shared hit=1552
+                          ->  Index Scan using uq_listings_listing_seller on listings l  (cost=0.43..5.71 rows=1 width=21) (actual time=0.001..0.001 rows=1.00 loops=15873)
+                                Index Cond: (listing_id = r.listing_id)
+                                Index Searches: 15873
+                                Buffers: shared hit=63486 read=7
+Planning:
+  Buffers: shared hit=281
+Planning Time: 0.407 ms
+Execution Time: 21.740 ms

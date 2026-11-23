@@ -1,0 +1,60 @@
+=== R09 run 1 ===
+Gather Merge  (cost=41225.38..41227.82 rows=21 width=59) (actual time=73.716..75.282 rows=131.00 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=44122 read=74729
+  ->  Sort  (cost=40225.35..40225.38 rows=9 width=59) (actual time=72.076..72.078 rows=43.67 loops=3)
+        Sort Key: (round((('6371'::double precision * acos(LEAST('1'::double precision, ((('0.9744814473612341'::double precision * cos(radians((latitude)::double precision))) * cos((radians((longitude)::double precision) - '1.354281251767992'::double precision))) + ('0.2244680573016001'::double precision * sin(radians((latitude)::double precision))))))))::numeric, 2))
+        Sort Method: quicksort  Memory: 27kB
+        Buffers: shared hit=44122 read=74729
+        Worker 0:  Sort Method: quicksort  Memory: 26kB
+        Worker 1:  Sort Method: quicksort  Memory: 27kB
+        ->  Parallel Index Scan using idx_listings_active_expires on listings  (cost=0.42..40225.21 rows=9 width=59) (actual time=5.261..72.036 rows=43.67 loops=3)
+              Filter: ((latitude >= 12.9536) AND (latitude <= 12.9896) AND (longitude >= 77.5761) AND (longitude <= 77.6131) AND (category_id = 9))
+              Rows Removed by Filter: 66128
+              Index Searches: 1
+              Buffers: shared hit=44048 read=74729
+Planning:
+  Buffers: shared hit=206 read=32
+Planning Time: 0.708 ms
+Execution Time: 75.318 ms
+=== R09 run 2 ===
+Gather Merge  (cost=41225.38..41227.82 rows=21 width=59) (actual time=74.106..76.009 rows=131.00 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=45313 read=73537
+  ->  Sort  (cost=40225.35..40225.38 rows=9 width=59) (actual time=72.537..72.538 rows=43.67 loops=3)
+        Sort Key: (round((('6371'::double precision * acos(LEAST('1'::double precision, ((('0.9744814473612341'::double precision * cos(radians((latitude)::double precision))) * cos((radians((longitude)::double precision) - '1.354281251767992'::double precision))) + ('0.2244680573016001'::double precision * sin(radians((latitude)::double precision))))))))::numeric, 2))
+        Sort Method: quicksort  Memory: 27kB
+        Buffers: shared hit=45313 read=73537
+        Worker 0:  Sort Method: quicksort  Memory: 26kB
+        Worker 1:  Sort Method: quicksort  Memory: 27kB
+        ->  Parallel Index Scan using idx_listings_active_expires on listings  (cost=0.42..40225.21 rows=9 width=59) (actual time=3.226..72.498 rows=43.67 loops=3)
+              Filter: ((latitude >= 12.9536) AND (latitude <= 12.9896) AND (longitude >= 77.5761) AND (longitude <= 77.6131) AND (category_id = 9))
+              Rows Removed by Filter: 66128
+              Index Searches: 1
+              Buffers: shared hit=45239 read=73537
+Planning:
+  Buffers: shared hit=194 read=44
+Planning Time: 0.747 ms
+Execution Time: 76.041 ms
+=== R09 run 3 ===
+Gather Merge  (cost=41225.38..41227.82 rows=21 width=59) (actual time=72.543..73.963 rows=131.00 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=45329 read=73522
+  ->  Sort  (cost=40225.35..40225.38 rows=9 width=59) (actual time=70.743..70.746 rows=43.67 loops=3)
+        Sort Key: (round((('6371'::double precision * acos(LEAST('1'::double precision, ((('0.9744814473612341'::double precision * cos(radians((latitude)::double precision))) * cos((radians((longitude)::double precision) - '1.354281251767992'::double precision))) + ('0.2244680573016001'::double precision * sin(radians((latitude)::double precision))))))))::numeric, 2))
+        Sort Method: quicksort  Memory: 27kB
+        Buffers: shared hit=45329 read=73522
+        Worker 0:  Sort Method: quicksort  Memory: 27kB
+        Worker 1:  Sort Method: quicksort  Memory: 27kB
+        ->  Parallel Index Scan using idx_listings_active_expires on listings  (cost=0.42..40225.21 rows=9 width=59) (actual time=6.064..70.706 rows=43.67 loops=3)
+              Filter: ((latitude >= 12.9536) AND (latitude <= 12.9896) AND (longitude >= 77.5761) AND (longitude <= 77.6131) AND (category_id = 9))
+              Rows Removed by Filter: 66128
+              Index Searches: 1
+              Buffers: shared hit=45255 read=73522
+Planning:
+  Buffers: shared hit=194 read=44
+Planning Time: 0.709 ms
+Execution Time: 73.997 ms

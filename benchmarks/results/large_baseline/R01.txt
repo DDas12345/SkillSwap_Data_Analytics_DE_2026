@@ -1,0 +1,39 @@
+=== R01 run 1 ===
+Limit  (cost=0.42..1479.71 rows=40 width=67) (actual time=0.438..0.499 rows=40.00 loops=1)
+  Buffers: shared hit=40 read=3
+  ->  Index Scan using idx_listings_active_city_category_posted on listings  (cost=0.42..19970.85 rows=540 width=67) (actual time=0.437..0.497 rows=40.00 loops=1)
+        Index Cond: ((city_id = 1) AND (category_id = 2))
+        Filter: ((price >= '300000'::numeric) AND (price <= '600000'::numeric))
+        Rows Removed by Filter: 12
+        Index Searches: 1
+        Buffers: shared hit=40 read=3
+Planning:
+  Buffers: shared hit=223 read=5
+Planning Time: 1.063 ms
+Execution Time: 0.512 ms
+=== R01 run 2 ===
+Limit  (cost=0.42..1479.71 rows=40 width=67) (actual time=0.022..0.107 rows=40.00 loops=1)
+  Buffers: shared hit=43
+  ->  Index Scan using idx_listings_active_city_category_posted on listings  (cost=0.42..19970.85 rows=540 width=67) (actual time=0.021..0.104 rows=40.00 loops=1)
+        Index Cond: ((city_id = 1) AND (category_id = 2))
+        Filter: ((price >= '300000'::numeric) AND (price <= '600000'::numeric))
+        Rows Removed by Filter: 12
+        Index Searches: 1
+        Buffers: shared hit=43
+Planning:
+  Buffers: shared hit=233
+Planning Time: 0.633 ms
+Execution Time: 0.127 ms
+=== R01 run 3 ===
+Limit  (cost=0.42..1479.71 rows=40 width=67) (actual time=0.017..0.084 rows=40.00 loops=1)
+  Buffers: shared hit=43
+  ->  Index Scan using idx_listings_active_city_category_posted on listings  (cost=0.42..19970.85 rows=540 width=67) (actual time=0.016..0.082 rows=40.00 loops=1)
+        Index Cond: ((city_id = 1) AND (category_id = 2))
+        Filter: ((price >= '300000'::numeric) AND (price <= '600000'::numeric))
+        Rows Removed by Filter: 12
+        Index Searches: 1
+        Buffers: shared hit=43
+Planning:
+  Buffers: shared hit=233
+Planning Time: 0.493 ms
+Execution Time: 0.100 ms

@@ -1,0 +1,84 @@
+=== R08 run 1 ===
+Sort  (cost=53162.70..53162.71 rows=4 width=21) (actual time=61.395..62.071 rows=4.00 loops=1)
+  Sort Key: (percentile_cont('0.5'::double precision) WITHIN GROUP (ORDER BY ((price)::double precision))) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=8192 read=33127 written=39
+  ->  GroupAggregate  (cost=53048.53..53162.66 rows=4 width=21) (actual time=56.901..62.066 rows=4.00 loops=1)
+        Group Key: item_condition
+        Buffers: shared hit=8189 read=33127 written=39
+        ->  Gather Merge  (cost=53048.53..53153.59 rows=902 width=11) (actual time=56.112..58.423 rows=29679.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=8186 read=33125 written=39
+              ->  Sort  (cost=52048.51..52049.45 rows=376 width=11) (actual time=54.517..54.701 rows=9893.00 loops=3)
+                    Sort Key: item_condition
+                    Sort Method: quicksort  Memory: 717kB
+                    Buffers: shared hit=8186 read=33125 written=39
+                    Worker 0:  Sort Method: quicksort  Memory: 684kB
+                    Worker 1:  Sort Method: quicksort  Memory: 680kB
+                    ->  Parallel Index Scan using idx_listings_posted_desc on listings  (cost=0.43..52032.43 rows=376 width=11) (actual time=0.096..52.603 rows=9893.00 loops=3)
+                          Index Cond: (posted_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                          Filter: ((category_id = 5) AND ((attributes ->> 'model'::text) = 'iPhone 13'::text))
+                          Rows Removed by Filter: 256645
+                          Index Searches: 1
+                          Buffers: shared hit=8170 read=33125 written=39
+Planning:
+  Buffers: shared hit=223 read=1
+Planning Time: 0.434 ms
+Execution Time: 62.099 ms
+=== R08 run 2 ===
+Sort  (cost=53162.70..53162.71 rows=4 width=21) (actual time=61.338..61.349 rows=4.00 loops=1)
+  Sort Key: (percentile_cont('0.5'::double precision) WITHIN GROUP (ORDER BY ((price)::double precision))) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5893 read=35431 written=5
+  ->  GroupAggregate  (cost=53048.53..53162.66 rows=4 width=21) (actual time=56.162..61.343 rows=4.00 loops=1)
+        Group Key: item_condition
+        Buffers: shared hit=5890 read=35431 written=5
+        ->  Gather Merge  (cost=53048.53..53153.59 rows=902 width=11) (actual time=55.264..57.168 rows=29679.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=5885 read=35431 written=5
+              ->  Sort  (cost=52048.51..52049.45 rows=376 width=11) (actual time=53.702..53.890 rows=9893.00 loops=3)
+                    Sort Key: item_condition
+                    Sort Method: quicksort  Memory: 712kB
+                    Buffers: shared hit=5885 read=35431 written=5
+                    Worker 0:  Sort Method: quicksort  Memory: 678kB
+                    Worker 1:  Sort Method: quicksort  Memory: 691kB
+                    ->  Parallel Index Scan using idx_listings_posted_desc on listings  (cost=0.43..52032.43 rows=376 width=11) (actual time=0.054..51.838 rows=9893.00 loops=3)
+                          Index Cond: (posted_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                          Filter: ((category_id = 5) AND ((attributes ->> 'model'::text) = 'iPhone 13'::text))
+                          Rows Removed by Filter: 256645
+                          Index Searches: 1
+                          Buffers: shared hit=5869 read=35431 written=5
+Planning:
+  Buffers: shared hit=200 read=24
+Planning Time: 0.812 ms
+Execution Time: 61.374 ms
+=== R08 run 3 ===
+Sort  (cost=53162.70..53162.71 rows=4 width=21) (actual time=58.736..58.747 rows=4.00 loops=1)
+  Sort Key: (percentile_cont('0.5'::double precision) WITHIN GROUP (ORDER BY ((price)::double precision))) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5900 read=35445
+  ->  GroupAggregate  (cost=53048.53..53162.66 rows=4 width=21) (actual time=54.181..58.742 rows=4.00 loops=1)
+        Group Key: item_condition
+        Buffers: shared hit=5897 read=35445
+        ->  Gather Merge  (cost=53048.53..53153.59 rows=902 width=11) (actual time=53.386..55.076 rows=29679.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=5892 read=35445
+              ->  Sort  (cost=52048.51..52049.45 rows=376 width=11) (actual time=51.925..52.120 rows=9893.00 loops=3)
+                    Sort Key: item_condition
+                    Sort Method: quicksort  Memory: 716kB
+                    Buffers: shared hit=5892 read=35445
+                    Worker 0:  Sort Method: quicksort  Memory: 677kB
+                    Worker 1:  Sort Method: quicksort  Memory: 689kB
+                    ->  Parallel Index Scan using idx_listings_posted_desc on listings  (cost=0.43..52032.43 rows=376 width=11) (actual time=0.038..50.164 rows=9893.00 loops=3)
+                          Index Cond: (posted_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                          Filter: ((category_id = 5) AND ((attributes ->> 'model'::text) = 'iPhone 13'::text))
+                          Rows Removed by Filter: 256645
+                          Index Searches: 1
+                          Buffers: shared hit=5876 read=35445
+Planning:
+  Buffers: shared hit=195 read=29
+Planning Time: 0.617 ms
+Execution Time: 58.772 ms

@@ -1,0 +1,57 @@
+=== W02 run 1 ===
+Update on listings  (cost=40843.27..40851.29 rows=0 width=0) (actual time=148.858..148.858 rows=0.00 loops=1)
+  Buffers: shared hit=43819 read=74737 dirtied=2 written=14
+  InitPlan 1
+    ->  Aggregate  (cost=40842.83..40842.84 rows=1 width=4) (actual time=148.846..148.847 rows=1.00 loops=1)
+          Buffers: shared hit=43819 read=74737 dirtied=2 written=14
+          ->  Index Scan using idx_listings_active_expires on listings listings_1  (cost=0.42..40842.83 rows=1 width=4) (actual time=148.843..148.843 rows=0.00 loops=1)
+                Filter: (seller_id = 1042)
+                Rows Removed by Filter: 198514
+                Index Searches: 1
+                Buffers: shared hit=43819 read=74737 dirtied=2 written=14
+  ->  Index Scan using uq_listings_listing_seller on listings  (cost=0.43..8.45 rows=1 width=72) (actual time=148.857..148.857 rows=0.00 loops=1)
+        Index Cond: (listing_id = (InitPlan 1).col1)
+        Index Searches: 0
+        Buffers: shared hit=43819 read=74737 dirtied=2 written=14
+Planning:
+  Buffers: shared hit=177 read=14
+Planning Time: 0.500 ms
+Execution Time: 149.277 ms
+=== W02 run 2 ===
+Update on listings  (cost=40843.27..40851.29 rows=0 width=0) (actual time=130.528..130.529 rows=0.00 loops=1)
+  Buffers: shared hit=45028 read=73524 written=2
+  InitPlan 1
+    ->  Aggregate  (cost=40842.83..40842.84 rows=1 width=4) (actual time=130.510..130.510 rows=1.00 loops=1)
+          Buffers: shared hit=45028 read=73524 written=2
+          ->  Index Scan using idx_listings_active_expires on listings listings_1  (cost=0.42..40842.83 rows=1 width=4) (actual time=130.507..130.508 rows=0.00 loops=1)
+                Filter: (seller_id = 1042)
+                Rows Removed by Filter: 198514
+                Index Searches: 1
+                Buffers: shared hit=45028 read=73524 written=2
+  ->  Index Scan using uq_listings_listing_seller on listings  (cost=0.43..8.45 rows=1 width=72) (actual time=130.528..130.528 rows=0.00 loops=1)
+        Index Cond: (listing_id = (InitPlan 1).col1)
+        Index Searches: 0
+        Buffers: shared hit=45028 read=73524 written=2
+Planning:
+  Buffers: shared hit=147 read=44
+Planning Time: 0.541 ms
+Execution Time: 130.610 ms
+=== W02 run 3 ===
+Update on listings  (cost=40843.27..40851.29 rows=0 width=0) (actual time=131.854..131.854 rows=0.00 loops=1)
+  Buffers: shared hit=45025 read=73527
+  InitPlan 1
+    ->  Aggregate  (cost=40842.83..40842.84 rows=1 width=4) (actual time=131.842..131.842 rows=1.00 loops=1)
+          Buffers: shared hit=45025 read=73527
+          ->  Index Scan using idx_listings_active_expires on listings listings_1  (cost=0.42..40842.83 rows=1 width=4) (actual time=131.839..131.839 rows=0.00 loops=1)
+                Filter: (seller_id = 1042)
+                Rows Removed by Filter: 198514
+                Index Searches: 1
+                Buffers: shared hit=45025 read=73527
+  ->  Index Scan using uq_listings_listing_seller on listings  (cost=0.43..8.45 rows=1 width=72) (actual time=131.853..131.853 rows=0.00 loops=1)
+        Index Cond: (listing_id = (InitPlan 1).col1)
+        Index Searches: 0
+        Buffers: shared hit=45025 read=73527
+Planning:
+  Buffers: shared hit=147 read=44
+Planning Time: 0.552 ms
+Execution Time: 131.936 ms

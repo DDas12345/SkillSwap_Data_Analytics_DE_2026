@@ -1,0 +1,6 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R04,READ,0.179,0.120,0.063,0.355,Index Scan using uq_listings_listing_seller on listings | Index Scan using users_pkey on users | Index Only Scan using idx_seller_ratings_seller_stars on seller_ratings
+R05,READ,0.075,0.076,0.067,0.082,Index Scan using idx_listings_seller_listing on listings
+W02,WRITE,0.206,0.102,0.084,0.431,Index Scan using idx_listings_seller_listing on listings | Index Scan using uq_listings_listing_seller on listings
+W03,WRITE,1.322,0.451,0.439,3.076,Index Only Scan using idx_chat_threads_buyer_thread on chat_threads
+W05,WRITE,0.059,0.054,0.052,0.070,Index Only Scan using idx_offers_pending_listing_price on offers | Index Scan using idx_offers_pending_listing_price on offers

@@ -1,0 +1,36 @@
+=== W04 run 1 ===
+Update on listings  (cost=0.42..39258.00 rows=0 width=0) (actual time=1270.005..1270.011 rows=0.00 loops=1)
+  Buffers: shared hit=932273 read=83948 dirtied=84942 written=81596
+  ->  Index Scan using idx_listings_active_expires on listings  (cost=0.42..39258.00 rows=185040 width=64) (actual time=0.022..345.982 rows=45275.00 loops=1)
+        Index Cond: (expires_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone)
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Index Searches: 1
+        Buffers: shared hit=309 read=35197 written=32908
+Planning:
+  Buffers: shared hit=210 read=2
+Planning Time: 0.597 ms
+Execution Time: 1270.597 ms
+=== W04 run 2 ===
+Update on listings  (cost=0.42..39940.26 rows=0 width=0) (actual time=903.734..903.734 rows=0.00 loops=1)
+  Buffers: shared hit=985131 read=88996 dirtied=89636 written=90710
+  ->  Index Scan using idx_listings_active_expires on listings  (cost=0.42..39940.26 rows=188250 width=64) (actual time=0.032..185.753 rows=45275.00 loops=1)
+        Index Cond: (expires_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone)
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Index Searches: 1
+        Buffers: shared hit=315 read=35191 dirtied=35067 written=34721
+Planning:
+  Buffers: shared hit=171 read=41 written=41
+Planning Time: 0.651 ms
+Execution Time: 903.828 ms
+=== W04 run 3 ===
+Update on listings  (cost=0.42..40640.24 rows=0 width=0) (actual time=5570.248..5570.249 rows=0.00 loops=1)
+  Buffers: shared hit=981727 read=84682 dirtied=85758 written=80488
+  ->  Index Scan using idx_listings_active_expires on listings  (cost=0.42..40640.24 rows=191550 width=64) (actual time=0.030..2366.184 rows=45275.00 loops=1)
+        Index Cond: (expires_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone)
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Index Searches: 1
+        Buffers: shared hit=77 read=35429 dirtied=35300 written=32341
+Planning:
+  Buffers: shared hit=171 read=41 written=40
+Planning Time: 0.583 ms
+Execution Time: 5570.324 ms

@@ -57,23 +57,57 @@ GROUP BY status;
 
 -- @R06
 -- Chat inbox: every conversation of user 1042 (as buyer or seller) with its latest message
-SELECT t.thread_id, l.title, last_msg.body, last_msg.sent_at
-FROM chat_threads t
-JOIN listings l ON l.listing_id = t.listing_id
-CROSS JOIN LATERAL (SELECT m.body, m.sent_at FROM chat_messages m
-                    WHERE m.thread_id = t.thread_id ORDER BY m.sent_at DESC LIMIT 1) last_msg
-WHERE t.buyer_id = 1042 OR l.seller_id = 1042
+WITH user_threads AS (
+    SELECT t.thread_id, t.listing_id
+    FROM chat_threads t
+    WHERE t.buyer_id = 1042
+
+    UNION
+
+    SELECT t.thread_id, t.listing_id
+    FROM listings l
+    JOIN chat_threads t
+        ON t.listing_id = l.listing_id
+    WHERE l.seller_id = 1042
+)
+SELECT
+    ut.thread_id,
+    l.title,
+    last_msg.body,
+    last_msg.sent_at
+FROM user_threads ut
+JOIN listings l
+    ON l.listing_id = ut.listing_id
+CROSS JOIN LATERAL (
+    SELECT m.body, m.sent_at
+    FROM chat_messages m
+    WHERE m.thread_id = ut.thread_id
+    ORDER BY m.sent_at DESC
+    LIMIT 1
+) last_msg
 ORDER BY last_msg.sent_at DESC;
 
 -- @R07
 -- Chat badge: unread messages sent to user 1042
-SELECT count(*) AS unread
-FROM chat_messages m
-JOIN chat_threads t ON t.thread_id = m.thread_id
-JOIN listings l     ON l.listing_id = t.listing_id
-WHERE NOT m.is_read
-  AND m.sender_id <> 1042
-  AND (t.buyer_id = 1042 OR l.seller_id = 1042);
+WITH user_threads AS (
+    SELECT t.thread_id
+    FROM chat_threads t
+    WHERE t.buyer_id = 1042
+
+    UNION
+
+    SELECT t.thread_id
+    FROM listings l
+    JOIN chat_threads t
+        ON t.listing_id = l.listing_id
+    WHERE l.seller_id = 1042
+)
+SELECT COUNT(*) AS unread
+FROM user_threads ut
+JOIN chat_messages m
+    ON m.thread_id = ut.thread_id
+WHERE m.is_read = FALSE
+  AND m.sender_id <> 1042;
 
 -- @R08
 -- Price guide: median asking price of iPhone 13 ads by condition (2026)

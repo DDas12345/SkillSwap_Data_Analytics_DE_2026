@@ -1,0 +1,72 @@
+=== R03 run 1 ===
+Limit  (cost=27069.01..27069.11 rows=40 width=36) (actual time=45.208..45.214 rows=40.00 loops=1)
+  Buffers: shared hit=1343 read=5828 written=11
+  ->  Sort  (cost=27069.01..27087.72 rows=7483 width=36) (actual time=45.207..45.211 rows=40.00 loops=1)
+        Sort Key: price
+        Sort Method: top-N heapsort  Memory: 29kB
+        Buffers: shared hit=1343 read=5828 written=11
+        ->  Bitmap Heap Scan on listings  (cost=4185.99..26832.47 rows=7483 width=36) (actual time=29.427..44.395 rows=7519.00 loops=1)
+              Recheck Cond: (((title)::text ~~* '%iphone 13%'::text) AND ((status)::text = 'ACTIVE'::text))
+              Heap Blocks: exact=6034
+              Buffers: shared hit=1340 read=5828 written=11
+              ->  BitmapAnd  (cost=4185.99..4185.99 rows=7483 width=0) (actual time=28.874..28.876 rows=0.00 loops=1)
+                    Buffers: shared hit=590 read=544
+                    ->  Bitmap Index Scan on idx_listings_title_trgm  (cost=0.00..1008.71 rows=90775 width=0) (actual time=19.316..19.316 rows=89109.00 loops=1)
+                          Index Cond: ((title)::text ~~* '%iphone 13%'::text)
+                          Index Searches: 1
+                          Buffers: shared hit=590
+                    ->  Bitmap Index Scan on idx_listings_active_expires  (cost=0.00..3173.30 rows=197775 width=0) (actual time=8.319..8.320 rows=198514.00 loops=1)
+                          Index Searches: 1
+                          Buffers: shared read=544
+Planning:
+  Buffers: shared hit=236
+Planning Time: 2.526 ms
+Execution Time: 45.272 ms
+=== R03 run 2 ===
+Limit  (cost=27069.01..27069.11 rows=40 width=36) (actual time=123.986..123.990 rows=40.00 loops=1)
+  Buffers: shared hit=3183 read=3988 written=1350
+  ->  Sort  (cost=27069.01..27087.72 rows=7483 width=36) (actual time=123.985..123.988 rows=40.00 loops=1)
+        Sort Key: price
+        Sort Method: top-N heapsort  Memory: 29kB
+        Buffers: shared hit=3183 read=3988 written=1350
+        ->  Bitmap Heap Scan on listings  (cost=4185.99..26832.47 rows=7483 width=36) (actual time=47.615..123.194 rows=7519.00 loops=1)
+              Recheck Cond: (((title)::text ~~* '%iphone 13%'::text) AND ((status)::text = 'ACTIVE'::text))
+              Heap Blocks: exact=6034
+              Buffers: shared hit=3180 read=3988 written=1350
+              ->  BitmapAnd  (cost=4185.99..4185.99 rows=7483 width=0) (actual time=47.087..47.089 rows=0.00 loops=1)
+                    Buffers: shared hit=590 read=544 written=240
+                    ->  Bitmap Index Scan on idx_listings_title_trgm  (cost=0.00..1008.71 rows=90775 width=0) (actual time=17.641..17.641 rows=89109.00 loops=1)
+                          Index Cond: ((title)::text ~~* '%iphone 13%'::text)
+                          Index Searches: 1
+                          Buffers: shared hit=590
+                    ->  Bitmap Index Scan on idx_listings_active_expires  (cost=0.00..3173.30 rows=197775 width=0) (actual time=28.045..28.045 rows=198514.00 loops=1)
+                          Index Searches: 1
+                          Buffers: shared read=544 written=240
+Planning:
+  Buffers: shared hit=236
+Planning Time: 0.772 ms
+Execution Time: 124.029 ms
+=== R03 run 3 ===
+Limit  (cost=27069.01..27069.11 rows=40 width=36) (actual time=35.499..35.504 rows=40.00 loops=1)
+  Buffers: shared hit=7170 read=1 written=1
+  ->  Sort  (cost=27069.01..27087.72 rows=7483 width=36) (actual time=35.498..35.501 rows=40.00 loops=1)
+        Sort Key: price
+        Sort Method: top-N heapsort  Memory: 29kB
+        Buffers: shared hit=7170 read=1 written=1
+        ->  Bitmap Heap Scan on listings  (cost=4185.99..26832.47 rows=7483 width=36) (actual time=26.738..34.799 rows=7519.00 loops=1)
+              Recheck Cond: (((title)::text ~~* '%iphone 13%'::text) AND ((status)::text = 'ACTIVE'::text))
+              Heap Blocks: exact=6034
+              Buffers: shared hit=7167 read=1 written=1
+              ->  BitmapAnd  (cost=4185.99..4185.99 rows=7483 width=0) (actual time=26.251..26.252 rows=0.00 loops=1)
+                    Buffers: shared hit=1133 read=1 written=1
+                    ->  Bitmap Index Scan on idx_listings_title_trgm  (cost=0.00..1008.71 rows=90775 width=0) (actual time=18.298..18.298 rows=89109.00 loops=1)
+                          Index Cond: ((title)::text ~~* '%iphone 13%'::text)
+                          Index Searches: 1
+                          Buffers: shared hit=589 read=1 written=1
+                    ->  Bitmap Index Scan on idx_listings_active_expires  (cost=0.00..3173.30 rows=197775 width=0) (actual time=6.470..6.470 rows=198514.00 loops=1)
+                          Index Searches: 1
+                          Buffers: shared hit=544
+Planning:
+  Buffers: shared hit=236
+Planning Time: 0.830 ms
+Execution Time: 35.548 ms

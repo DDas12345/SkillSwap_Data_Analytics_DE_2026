@@ -1,0 +1,45 @@
+=== R13 run 1 ===
+Hash Right Anti Join  (cost=1.14..135422.38 rows=2 width=26) (actual time=208.178..208.182 rows=2.00 loops=1)
+  Hash Cond: (l.boost_package_id = b.package_id)
+  Buffers: shared hit=9983 read=77329
+  ->  Seq Scan on listings l  (cost=0.00..111316.11 rows=2400511 width=4) (actual time=0.009..98.859 rows=2400000.00 loops=1)
+        Buffers: shared hit=9982 read=77329
+  ->  Hash  (cost=1.06..1.06 rows=6 width=26) (actual time=0.007..0.008 rows=6.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=1
+        ->  Seq Scan on boost_packages b  (cost=0.00..1.06 rows=6 width=26) (actual time=0.002..0.003 rows=6.00 loops=1)
+              Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=332 read=6 dirtied=1
+Planning Time: 1.127 ms
+Execution Time: 208.228 ms
+=== R13 run 2 ===
+Hash Right Anti Join  (cost=1.14..135422.38 rows=2 width=26) (actual time=206.293..206.296 rows=2.00 loops=1)
+  Hash Cond: (l.boost_package_id = b.package_id)
+  Buffers: shared hit=10077 read=77235
+  ->  Seq Scan on listings l  (cost=0.00..111316.11 rows=2400511 width=4) (actual time=0.019..98.457 rows=2400000.00 loops=1)
+        Buffers: shared hit=10076 read=77235
+  ->  Hash  (cost=1.06..1.06 rows=6 width=26) (actual time=0.005..0.006 rows=6.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=1
+        ->  Seq Scan on boost_packages b  (cost=0.00..1.06 rows=6 width=26) (actual time=0.002..0.002 rows=6.00 loops=1)
+              Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=338
+Planning Time: 0.573 ms
+Execution Time: 206.341 ms
+=== R13 run 3 ===
+Hash Right Anti Join  (cost=1.14..135422.38 rows=2 width=26) (actual time=236.510..236.512 rows=2.00 loops=1)
+  Hash Cond: (l.boost_package_id = b.package_id)
+  Buffers: shared hit=10171 read=77141
+  ->  Seq Scan on listings l  (cost=0.00..111316.11 rows=2400511 width=4) (actual time=0.016..112.679 rows=2400000.00 loops=1)
+        Buffers: shared hit=10170 read=77141
+  ->  Hash  (cost=1.06..1.06 rows=6 width=26) (actual time=0.005..0.006 rows=6.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=1
+        ->  Seq Scan on boost_packages b  (cost=0.00..1.06 rows=6 width=26) (actual time=0.002..0.002 rows=6.00 loops=1)
+              Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=338
+Planning Time: 0.555 ms
+Execution Time: 236.551 ms

@@ -1,0 +1,2 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R03,READ,14.504,14.107,11.756,17.650,Bitmap Heap Scan on listings | Bitmap Index Scan on idx_listings_active_title_trgm

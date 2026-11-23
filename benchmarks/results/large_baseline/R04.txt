@@ -1,0 +1,66 @@
+=== R04 run 1 ===
+Nested Loop  (cost=0.85..4846.21 rows=1 width=155) (actual time=49.004..49.007 rows=1.00 loops=1)
+  Buffers: shared hit=1 read=1999 written=1999
+  ->  Index Scan using uq_listings_listing_seller on listings l  (cost=0.43..8.45 rows=1 width=114) (actual time=0.380..0.382 rows=1.00 loops=1)
+        Index Cond: (listing_id = 100871)
+        Index Searches: 1
+        Buffers: shared read=4 written=4
+  ->  Index Scan using users_pkey on users u  (cost=0.42..8.44 rows=1 width=17) (actual time=0.231..0.231 rows=1.00 loops=1)
+        Index Cond: (user_id = l.seller_id)
+        Index Searches: 1
+        Buffers: shared hit=1 read=3 written=3
+  SubPlan 1
+    ->  Aggregate  (cost=4829.31..4829.32 rows=1 width=32) (actual time=48.388..48.388 rows=1.00 loops=1)
+          Buffers: shared read=1992 written=1992
+          ->  Seq Scan on seller_ratings r  (cost=0.00..4829.30 rows=2 width=4) (actual time=48.381..48.381 rows=0.00 loops=1)
+                Filter: (seller_id = l.seller_id)
+                Rows Removed by Filter: 226984
+                Buffers: shared read=1992 written=1992
+Planning:
+  Buffers: shared hit=396 read=11 written=11
+Planning Time: 1.959 ms
+Execution Time: 49.048 ms
+=== R04 run 2 ===
+Nested Loop  (cost=0.85..4846.21 rows=1 width=155) (actual time=6.818..6.819 rows=1.00 loops=1)
+  Buffers: shared hit=2000
+  ->  Index Scan using uq_listings_listing_seller on listings l  (cost=0.43..8.45 rows=1 width=114) (actual time=0.005..0.006 rows=1.00 loops=1)
+        Index Cond: (listing_id = 100871)
+        Index Searches: 1
+        Buffers: shared hit=4
+  ->  Index Scan using users_pkey on users u  (cost=0.42..8.44 rows=1 width=17) (actual time=0.004..0.004 rows=1.00 loops=1)
+        Index Cond: (user_id = l.seller_id)
+        Index Searches: 1
+        Buffers: shared hit=4
+  SubPlan 1
+    ->  Aggregate  (cost=4829.31..4829.32 rows=1 width=32) (actual time=6.806..6.806 rows=1.00 loops=1)
+          Buffers: shared hit=1992
+          ->  Seq Scan on seller_ratings r  (cost=0.00..4829.30 rows=2 width=4) (actual time=6.802..6.802 rows=0.00 loops=1)
+                Filter: (seller_id = l.seller_id)
+                Rows Removed by Filter: 226984
+                Buffers: shared hit=1992
+Planning:
+  Buffers: shared hit=407
+Planning Time: 0.654 ms
+Execution Time: 6.857 ms
+=== R04 run 3 ===
+Nested Loop  (cost=0.85..4846.21 rows=1 width=155) (actual time=7.087..7.088 rows=1.00 loops=1)
+  Buffers: shared hit=2000
+  ->  Index Scan using uq_listings_listing_seller on listings l  (cost=0.43..8.45 rows=1 width=114) (actual time=0.006..0.006 rows=1.00 loops=1)
+        Index Cond: (listing_id = 100871)
+        Index Searches: 1
+        Buffers: shared hit=4
+  ->  Index Scan using users_pkey on users u  (cost=0.42..8.44 rows=1 width=17) (actual time=0.005..0.005 rows=1.00 loops=1)
+        Index Cond: (user_id = l.seller_id)
+        Index Searches: 1
+        Buffers: shared hit=4
+  SubPlan 1
+    ->  Aggregate  (cost=4829.31..4829.32 rows=1 width=32) (actual time=7.073..7.073 rows=1.00 loops=1)
+          Buffers: shared hit=1992
+          ->  Seq Scan on seller_ratings r  (cost=0.00..4829.30 rows=2 width=4) (actual time=7.069..7.069 rows=0.00 loops=1)
+                Filter: (seller_id = l.seller_id)
+                Rows Removed by Filter: 226984
+                Buffers: shared hit=1992
+Planning:
+  Buffers: shared hit=407
+Planning Time: 0.607 ms
+Execution Time: 7.126 ms

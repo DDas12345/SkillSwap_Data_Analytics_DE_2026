@@ -1,0 +1,27 @@
+=== R10 run 1 ===
+Index Scan using idx_listings_active_expires on listings  (cost=0.42..458.00 rows=1157 width=33) (actual time=0.014..5.226 rows=12279.00 loops=1)
+  Index Cond: ((expires_at >= '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND (expires_at < '2026-07-04 00:00:00+05:30'::timestamp with time zone))
+  Index Searches: 1
+  Buffers: shared hit=1502 read=1712
+Planning:
+  Buffers: shared hit=170 read=43
+Planning Time: 0.593 ms
+Execution Time: 5.465 ms
+=== R10 run 2 ===
+Index Scan using idx_listings_active_expires on listings  (cost=0.42..458.00 rows=1157 width=33) (actual time=0.008..2.728 rows=12279.00 loops=1)
+  Index Cond: ((expires_at >= '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND (expires_at < '2026-07-04 00:00:00+05:30'::timestamp with time zone))
+  Index Searches: 1
+  Buffers: shared hit=3214
+Planning:
+  Buffers: shared hit=213
+Planning Time: 0.331 ms
+Execution Time: 2.958 ms
+=== R10 run 3 ===
+Index Scan using idx_listings_active_expires on listings  (cost=0.42..458.00 rows=1157 width=33) (actual time=0.009..2.825 rows=12279.00 loops=1)
+  Index Cond: ((expires_at >= '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND (expires_at < '2026-07-04 00:00:00+05:30'::timestamp with time zone))
+  Index Searches: 1
+  Buffers: shared hit=3214
+Planning:
+  Buffers: shared hit=213
+Planning Time: 0.315 ms
+Execution Time: 3.043 ms

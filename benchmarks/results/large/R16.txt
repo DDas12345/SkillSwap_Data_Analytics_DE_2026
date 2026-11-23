@@ -1,0 +1,111 @@
+=== R16 run 1 ===
+Limit  (cost=55063.31..55063.36 rows=20 width=29) (actual time=141.166..142.510 rows=20.00 loops=1)
+  Buffers: shared hit=44764 read=81631 written=2
+  ->  Sort  (cost=55063.31..55070.36 rows=2819 width=29) (actual time=141.165..142.508 rows=20.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=44764 read=81631 written=2
+        ->  GroupAggregate  (cost=54610.65..54988.30 rows=2819 width=29) (actual time=136.523..141.537 rows=18890.00 loops=1)
+              Group Key: f.listing_id, l.title
+              Buffers: shared hit=44761 read=81631 written=2
+              ->  Gather Merge  (cost=54610.65..54938.97 rows=2819 width=21) (actual time=136.519..139.356 rows=27333.00 loops=1)
+                    Workers Planned: 2
+                    Workers Launched: 2
+                    Buffers: shared hit=44761 read=81631 written=2
+                    ->  Sort  (cost=53610.62..53613.56 rows=1175 width=21) (actual time=134.700..134.878 rows=9111.00 loops=3)
+                          Sort Key: f.listing_id, l.title
+                          Sort Method: quicksort  Memory: 745kB
+                          Buffers: shared hit=44761 read=81631 written=2
+                          Worker 0:  Sort Method: quicksort  Memory: 746kB
+                          Worker 1:  Sort Method: quicksort  Memory: 737kB
+                          ->  Parallel Hash Join  (cost=15049.83..53550.71 rows=1175 width=21) (actual time=118.230..134.148 rows=9111.00 loops=3)
+                                Hash Cond: (l.listing_id = f.listing_id)
+                                Buffers: shared hit=44731 read=81631 written=2
+                                ->  Parallel Index Scan using idx_listings_active_expires on listings l  (cost=0.42..38179.47 rows=84518 width=21) (actual time=0.092..65.340 rows=66171.33 loops=3)
+                                      Index Searches: 1
+                                      Buffers: shared hit=44731 read=74047 written=2
+                                ->  Parallel Hash  (cost=14875.66..14875.66 rows=13900 width=4) (actual time=62.369..62.369 rows=10779.67 loops=3)
+                                      Buckets: 65536  Batches: 1  Memory Usage: 1824kB
+                                      Buffers: shared read=7584
+                                      ->  Parallel Seq Scan on favourites f  (cost=0.00..14875.66 rows=13900 width=4) (actual time=0.377..61.190 rows=10779.67 loops=3)
+                                            Filter: (saved_at >= '2026-06-24 00:00:00+05:30'::timestamp with time zone)
+                                            Rows Removed by Filter: 455886
+                                            Buffers: shared read=7584
+Planning:
+  Buffers: shared hit=347 read=5
+Planning Time: 1.016 ms
+Execution Time: 142.546 ms
+=== R16 run 2 ===
+Limit  (cost=55063.31..55063.36 rows=20 width=29) (actual time=104.010..105.051 rows=20.00 loops=1)
+  Buffers: shared hit=45227 read=81166
+  ->  Sort  (cost=55063.31..55070.36 rows=2819 width=29) (actual time=104.009..105.050 rows=20.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=45227 read=81166
+        ->  GroupAggregate  (cost=54610.65..54988.30 rows=2819 width=29) (actual time=99.134..103.885 rows=18890.00 loops=1)
+              Group Key: f.listing_id, l.title
+              Buffers: shared hit=45224 read=81166
+              ->  Gather Merge  (cost=54610.65..54938.97 rows=2819 width=21) (actual time=99.128..101.618 rows=27333.00 loops=1)
+                    Workers Planned: 2
+                    Workers Launched: 2
+                    Buffers: shared hit=45224 read=81166
+                    ->  Sort  (cost=53610.62..53613.56 rows=1175 width=21) (actual time=97.226..97.396 rows=9111.00 loops=3)
+                          Sort Key: f.listing_id, l.title
+                          Sort Method: quicksort  Memory: 750kB
+                          Buffers: shared hit=45224 read=81166
+                          Worker 0:  Sort Method: quicksort  Memory: 731kB
+                          Worker 1:  Sort Method: quicksort  Memory: 747kB
+                          ->  Parallel Hash Join  (cost=15049.83..53550.71 rows=1175 width=21) (actual time=79.073..96.554 rows=9111.00 loops=3)
+                                Hash Cond: (l.listing_id = f.listing_id)
+                                Buffers: shared hit=45194 read=81166
+                                ->  Parallel Index Scan using idx_listings_active_expires on listings l  (cost=0.42..38179.47 rows=84518 width=21) (actual time=0.087..71.104 rows=66171.33 loops=3)
+                                      Index Searches: 1
+                                      Buffers: shared hit=45194 read=73582
+                                ->  Parallel Hash  (cost=14875.66..14875.66 rows=13900 width=4) (actual time=16.997..16.998 rows=10779.67 loops=3)
+                                      Buckets: 65536  Batches: 1  Memory Usage: 1824kB
+                                      Buffers: shared read=7584
+                                      ->  Parallel Seq Scan on favourites f  (cost=0.00..14875.66 rows=13900 width=4) (actual time=0.034..15.833 rows=10779.67 loops=3)
+                                            Filter: (saved_at >= '2026-06-24 00:00:00+05:30'::timestamp with time zone)
+                                            Rows Removed by Filter: 455886
+                                            Buffers: shared read=7584
+Planning:
+  Buffers: shared hit=294 read=58
+Planning Time: 0.885 ms
+Execution Time: 105.086 ms
+=== R16 run 3 ===
+Limit  (cost=55063.31..55063.36 rows=20 width=29) (actual time=92.359..93.689 rows=20.00 loops=1)
+  Buffers: shared hit=45239 read=81156
+  ->  Sort  (cost=55063.31..55070.36 rows=2819 width=29) (actual time=92.358..93.687 rows=20.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=45239 read=81156
+        ->  GroupAggregate  (cost=54610.65..54988.30 rows=2819 width=29) (actual time=87.738..92.676 rows=18890.00 loops=1)
+              Group Key: f.listing_id, l.title
+              Buffers: shared hit=45236 read=81156
+              ->  Gather Merge  (cost=54610.65..54938.97 rows=2819 width=21) (actual time=87.732..90.502 rows=27333.00 loops=1)
+                    Workers Planned: 2
+                    Workers Launched: 2
+                    Buffers: shared hit=45236 read=81156
+                    ->  Sort  (cost=53610.62..53613.56 rows=1175 width=21) (actual time=85.967..86.143 rows=9111.00 loops=3)
+                          Sort Key: f.listing_id, l.title
+                          Sort Method: quicksort  Memory: 743kB
+                          Buffers: shared hit=45236 read=81156
+                          Worker 0:  Sort Method: quicksort  Memory: 747kB
+                          Worker 1:  Sort Method: quicksort  Memory: 737kB
+                          ->  Parallel Hash Join  (cost=15049.83..53550.71 rows=1175 width=21) (actual time=69.519..85.403 rows=9111.00 loops=3)
+                                Hash Cond: (l.listing_id = f.listing_id)
+                                Buffers: shared hit=45206 read=81156
+                                ->  Parallel Index Scan using idx_listings_active_expires on listings l  (cost=0.42..38179.47 rows=84518 width=21) (actual time=0.076..65.430 rows=66171.33 loops=3)
+                                      Index Searches: 1
+                                      Buffers: shared hit=45206 read=73572
+                                ->  Parallel Hash  (cost=14875.66..14875.66 rows=13900 width=4) (actual time=13.310..13.311 rows=10779.67 loops=3)
+                                      Buckets: 65536  Batches: 1  Memory Usage: 1824kB
+                                      Buffers: shared read=7584
+                                      ->  Parallel Seq Scan on favourites f  (cost=0.00..14875.66 rows=13900 width=4) (actual time=0.033..12.512 rows=10779.67 loops=3)
+                                            Filter: (saved_at >= '2026-06-24 00:00:00+05:30'::timestamp with time zone)
+                                            Rows Removed by Filter: 455886
+                                            Buffers: shared read=7584
+Planning:
+  Buffers: shared hit=294 read=58
+Planning Time: 0.786 ms
+Execution Time: 93.728 ms

@@ -1,0 +1,111 @@
+=== R14 run 1 ===
+Sort  (cost=105959.62..105959.65 rows=12 width=49) (actual time=158.869..158.882 rows=9.00 loops=1)
+  Sort Key: (round(avg((EXTRACT(epoch FROM (l.sold_at - l.posted_at)) / '86400'::numeric)), 1))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=10286 read=77047, temp read=1285 written=1288
+  ->  Finalize GroupAggregate  (cost=105923.05..105959.41 rows=12 width=49) (actual time=143.590..158.874 rows=9.00 loops=1)
+        Group Key: c.category_name
+        Buffers: shared hit=10283 read=77047, temp read=1285 written=1288
+        ->  Gather Merge  (cost=105923.05..105958.94 rows=29 width=49) (actual time=141.319..158.858 rows=27.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=10283 read=77047, temp read=1285 written=1288
+              ->  Partial GroupAggregate  (cost=104923.02..104955.57 rows=12 width=49) (actual time=123.957..140.369 rows=9.00 loops=3)
+                    Group Key: c.category_name
+                    Buffers: shared hit=10283 read=77047, temp read=1285 written=1288
+                    ->  Sort  (cost=104923.02..104927.65 rows=1851 width=25) (actual time=121.889..125.675 rows=96490.00 loops=3)
+                          Sort Key: c.category_name
+                          Sort Method: external merge  Disk: 3568kB
+                          Buffers: shared hit=10283 read=77047, temp read=1285 written=1288
+                          Worker 0:  Sort Method: external merge  Disk: 3408kB
+                          Worker 1:  Sort Method: external merge  Disk: 3304kB
+                          ->  Hash Join  (cost=1.27..104822.57 rows=1851 width=25) (actual time=0.456..99.730 rows=96490.00 loops=3)
+                                Hash Cond: (l.category_id = c.category_id)
+                                Buffers: shared hit=10267 read=77047
+                                ->  Parallel Seq Scan on listings l  (cost=0.00..104814.73 rows=1851 width=20) (actual time=0.400..92.683 rows=96490.00 loops=3)
+                                      Filter: (((status)::text = 'SOLD'::text) AND (EXTRACT(year FROM sold_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 703510
+                                      Buffers: shared hit=10264 read=77047
+                                ->  Hash  (cost=1.12..1.12 rows=12 width=13) (actual time=0.049..0.050 rows=12.00 loops=3)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=3
+                                      ->  Seq Scan on categories c  (cost=0.00..1.12 rows=12 width=13) (actual time=0.044..0.044 rows=12.00 loops=3)
+                                            Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=376 read=7 dirtied=1
+Planning Time: 0.964 ms
+Execution Time: 159.581 ms
+=== R14 run 2 ===
+Sort  (cost=105959.62..105959.65 rows=12 width=49) (actual time=154.171..154.185 rows=9.00 loops=1)
+  Sort Key: (round(avg((EXTRACT(epoch FROM (l.sold_at - l.posted_at)) / '86400'::numeric)), 1))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=10568 read=76765, temp read=1285 written=1288
+  ->  Finalize GroupAggregate  (cost=105923.05..105959.41 rows=12 width=49) (actual time=140.371..154.177 rows=9.00 loops=1)
+        Group Key: c.category_name
+        Buffers: shared hit=10565 read=76765, temp read=1285 written=1288
+        ->  Gather Merge  (cost=105923.05..105958.94 rows=29 width=49) (actual time=138.310..154.162 rows=27.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=10565 read=76765, temp read=1285 written=1288
+              ->  Partial GroupAggregate  (cost=104923.02..104955.57 rows=12 width=49) (actual time=120.361..136.246 rows=9.00 loops=3)
+                    Group Key: c.category_name
+                    Buffers: shared hit=10565 read=76765, temp read=1285 written=1288
+                    ->  Sort  (cost=104923.02..104927.65 rows=1851 width=25) (actual time=118.361..122.039 rows=96490.00 loops=3)
+                          Sort Key: c.category_name
+                          Sort Method: external merge  Disk: 3600kB
+                          Buffers: shared hit=10565 read=76765, temp read=1285 written=1288
+                          Worker 0:  Sort Method: external merge  Disk: 3304kB
+                          Worker 1:  Sort Method: external merge  Disk: 3376kB
+                          ->  Hash Join  (cost=1.27..104822.57 rows=1851 width=25) (actual time=0.481..97.040 rows=96490.00 loops=3)
+                                Hash Cond: (l.category_id = c.category_id)
+                                Buffers: shared hit=10549 read=76765
+                                ->  Parallel Seq Scan on listings l  (cost=0.00..104814.73 rows=1851 width=20) (actual time=0.427..90.288 rows=96490.00 loops=3)
+                                      Filter: (((status)::text = 'SOLD'::text) AND (EXTRACT(year FROM sold_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 703510
+                                      Buffers: shared hit=10546 read=76765
+                                ->  Hash  (cost=1.12..1.12 rows=12 width=13) (actual time=0.046..0.047 rows=12.00 loops=3)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=3
+                                      ->  Seq Scan on categories c  (cost=0.00..1.12 rows=12 width=13) (actual time=0.039..0.040 rows=12.00 loops=3)
+                                            Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=383
+Planning Time: 0.557 ms
+Execution Time: 154.877 ms
+=== R14 run 3 ===
+Sort  (cost=105959.62..105959.65 rows=12 width=49) (actual time=159.184..159.198 rows=9.00 loops=1)
+  Sort Key: (round(avg((EXTRACT(epoch FROM (l.sold_at - l.posted_at)) / '86400'::numeric)), 1))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=10850 read=76483, temp read=1285 written=1288
+  ->  Finalize GroupAggregate  (cost=105923.05..105959.41 rows=12 width=49) (actual time=143.681..159.192 rows=9.00 loops=1)
+        Group Key: c.category_name
+        Buffers: shared hit=10847 read=76483, temp read=1285 written=1288
+        ->  Gather Merge  (cost=105923.05..105958.94 rows=29 width=49) (actual time=141.467..159.178 rows=27.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=10847 read=76483, temp read=1285 written=1288
+              ->  Partial GroupAggregate  (cost=104923.02..104955.57 rows=12 width=49) (actual time=122.158..139.334 rows=9.00 loops=3)
+                    Group Key: c.category_name
+                    Buffers: shared hit=10847 read=76483, temp read=1285 written=1288
+                    ->  Sort  (cost=104923.02..104927.65 rows=1851 width=25) (actual time=119.950..123.783 rows=96490.00 loops=3)
+                          Sort Key: c.category_name
+                          Sort Method: external merge  Disk: 3432kB
+                          Buffers: shared hit=10847 read=76483, temp read=1285 written=1288
+                          Worker 0:  Sort Method: external merge  Disk: 3376kB
+                          Worker 1:  Sort Method: external merge  Disk: 3472kB
+                          ->  Hash Join  (cost=1.27..104822.57 rows=1851 width=25) (actual time=0.291..96.958 rows=96490.00 loops=3)
+                                Hash Cond: (l.category_id = c.category_id)
+                                Buffers: shared hit=10831 read=76483
+                                ->  Parallel Seq Scan on listings l  (cost=0.00..104814.73 rows=1851 width=20) (actual time=0.267..89.904 rows=96490.00 loops=3)
+                                      Filter: (((status)::text = 'SOLD'::text) AND (EXTRACT(year FROM sold_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 703510
+                                      Buffers: shared hit=10828 read=76483
+                                ->  Hash  (cost=1.12..1.12 rows=12 width=13) (actual time=0.019..0.019 rows=12.00 loops=3)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=3
+                                      ->  Seq Scan on categories c  (cost=0.00..1.12 rows=12 width=13) (actual time=0.015..0.015 rows=12.00 loops=3)
+                                            Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=383
+Planning Time: 0.510 ms
+Execution Time: 159.848 ms

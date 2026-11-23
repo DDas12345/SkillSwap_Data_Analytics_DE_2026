@@ -1,0 +1,2 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R03,READ,30.732,28.162,24.573,39.460,Index Only Scan using idx_listings_active_price_cover on listings
